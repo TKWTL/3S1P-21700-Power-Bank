@@ -1,0 +1,576 @@
+Dependencies for Project 'Project', Target 'PY32F030x6_Project': (DO NOT MODIFY !)
+CompilerVersion: 6150000::V6.15::ARMCLANG
+F (.\startup_py32f030xx.s)(0x66033590)(--cpu Cortex-M0+ -g --pd "__MICROLIB SETA 1"-I.\RTE\_PY32F030x6_Project-IC:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include--pd "__UVISION_VERSION SETA 533"--pd "_RTE_ SETA 1"--pd "_RTE_ SETA 1"--list .\listings\startup_py32f030xx.lst--xref -o .\objects\startup_py32f030xx.o--depend .\objects\startup_py32f030xx.d)
+F (.\Src\system_py32f0xx.c)(0x66033590)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/system_py32f0xx.o -MD)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+F (.\py32f0xx_it.c)(0x6673C056)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_it.o -MD)
+I (main.h)(0x668A18E1)
+I (defines.h)(0x6673E327)
+I (hardware_config.h)(0x66A23F01)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_system.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_cortex.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_utils.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_pwr.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_exti.h)(0x66A23C1C)
+I (Drivers\Inc\py32f0xx_ll_adc.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_dma.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_gpio.h)(0x666C1F39)
+I (Drivers\Inc\py32f0xx_ll_i2c.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_usart.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_tim.h)(0x66033590)
+I (software_config.h)(0x66BADCFF)
+I (coroOS\coroOS.h)(0x668B8AF5)
+I (coroOS\pt1.4\pt.h)(0x4520C558)
+I (coroOS\pt1.4\lc.h)(0x421DAE4B)
+I (coroOS\pt1.4\lc-switch.h)(0x448172A7)
+I (coroOS\pt1.4\pt-sem.h)(0x421DAE4B)
+I (Applications\bsp_py32f030x6.h)(0x66991A37)
+I (Drivers\Inc\py32f0xx_bsp_rcc.h)(0x6673F462)
+I (Drivers\Inc\py32f0xx_bsp_i2c.h)(0x66B3DE50)
+I (Drivers\Inc\py32f0xx_bsp_pwr.h)(0x668A191F)
+I (Drivers\Inc\py32f0xx_bsp_gpio.h)(0x6688FC9E)
+I (Drivers\Inc\py32f0xx_bsp_exti.h)(0x66A1EFA9)
+I (Drivers\Inc\py32f0xx_bsp_tim.h)(0x66A365FE)
+I (Drivers\Inc\py32f0xx_bsp_usart.h)(0x66B232CD)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F36D0B4)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdarg.h)(0x5F36D092)
+I (py32f0xx_it.h)(0x66033590)
+F (.\Applications\bsp_py32f030x6.c)(0x66A1E624)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/bsp_py32f030x6.o -MD)
+I (Applications\bsp_py32f030x6.h)(0x66991A37)
+I (defines.h)(0x6673E327)
+I (hardware_config.h)(0x66A23F01)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_system.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_cortex.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_utils.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_pwr.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_exti.h)(0x66A23C1C)
+I (Drivers\Inc\py32f0xx_ll_adc.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_dma.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_gpio.h)(0x666C1F39)
+I (Drivers\Inc\py32f0xx_ll_i2c.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_usart.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_tim.h)(0x66033590)
+I (software_config.h)(0x66BADCFF)
+I (Drivers\Inc\py32f0xx_bsp_rcc.h)(0x6673F462)
+I (Drivers\Inc\py32f0xx_bsp_i2c.h)(0x66B3DE50)
+I (coroOS\coroOS.h)(0x668B8AF5)
+I (coroOS\pt1.4\pt.h)(0x4520C558)
+I (coroOS\pt1.4\lc.h)(0x421DAE4B)
+I (coroOS\pt1.4\lc-switch.h)(0x448172A7)
+I (coroOS\pt1.4\pt-sem.h)(0x421DAE4B)
+I (Drivers\Inc\py32f0xx_bsp_pwr.h)(0x668A191F)
+I (Drivers\Inc\py32f0xx_bsp_gpio.h)(0x6688FC9E)
+I (Drivers\Inc\py32f0xx_bsp_exti.h)(0x66A1EFA9)
+I (Drivers\Inc\py32f0xx_bsp_tim.h)(0x66A365FE)
+I (Drivers\Inc\py32f0xx_bsp_usart.h)(0x66B232CD)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F36D0B4)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdarg.h)(0x5F36D092)
+F (.\main.c)(0x66BA2973)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/main.o -MD)
+I (main.h)(0x668A18E1)
+I (defines.h)(0x6673E327)
+I (hardware_config.h)(0x66A23F01)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_system.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_cortex.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_utils.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_pwr.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_exti.h)(0x66A23C1C)
+I (Drivers\Inc\py32f0xx_ll_adc.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_dma.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_gpio.h)(0x666C1F39)
+I (Drivers\Inc\py32f0xx_ll_i2c.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_usart.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_tim.h)(0x66033590)
+I (software_config.h)(0x66BADCFF)
+I (coroOS\coroOS.h)(0x668B8AF5)
+I (coroOS\pt1.4\pt.h)(0x4520C558)
+I (coroOS\pt1.4\lc.h)(0x421DAE4B)
+I (coroOS\pt1.4\lc-switch.h)(0x448172A7)
+I (coroOS\pt1.4\pt-sem.h)(0x421DAE4B)
+I (Applications\bsp_py32f030x6.h)(0x66991A37)
+I (Drivers\Inc\py32f0xx_bsp_rcc.h)(0x6673F462)
+I (Drivers\Inc\py32f0xx_bsp_i2c.h)(0x66B3DE50)
+I (Drivers\Inc\py32f0xx_bsp_pwr.h)(0x668A191F)
+I (Drivers\Inc\py32f0xx_bsp_gpio.h)(0x6688FC9E)
+I (Drivers\Inc\py32f0xx_bsp_exti.h)(0x66A1EFA9)
+I (Drivers\Inc\py32f0xx_bsp_tim.h)(0x66A365FE)
+I (Drivers\Inc\py32f0xx_bsp_usart.h)(0x66B232CD)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F36D0B4)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdarg.h)(0x5F36D092)
+I (Drivers\SW6306\sw6306.h)(0x66BADC8E)
+I (Applications\debounce_key.h)(0x66A3B651)
+F (.\Applications\debounce_key.c)(0x66B87340)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/debounce_key.o -MD)
+I (Applications\debounce_key.h)(0x66A3B651)
+I (Applications\bsp_py32f030x6.h)(0x66991A37)
+I (defines.h)(0x6673E327)
+I (hardware_config.h)(0x66A23F01)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_system.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_cortex.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_utils.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_pwr.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_exti.h)(0x66A23C1C)
+I (Drivers\Inc\py32f0xx_ll_adc.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_dma.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_gpio.h)(0x666C1F39)
+I (Drivers\Inc\py32f0xx_ll_i2c.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_usart.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_tim.h)(0x66033590)
+I (software_config.h)(0x66BADCFF)
+I (Drivers\Inc\py32f0xx_bsp_rcc.h)(0x6673F462)
+I (Drivers\Inc\py32f0xx_bsp_i2c.h)(0x66B3DE50)
+I (coroOS\coroOS.h)(0x668B8AF5)
+I (coroOS\pt1.4\pt.h)(0x4520C558)
+I (coroOS\pt1.4\lc.h)(0x421DAE4B)
+I (coroOS\pt1.4\lc-switch.h)(0x448172A7)
+I (coroOS\pt1.4\pt-sem.h)(0x421DAE4B)
+I (Drivers\Inc\py32f0xx_bsp_pwr.h)(0x668A191F)
+I (Drivers\Inc\py32f0xx_bsp_gpio.h)(0x6688FC9E)
+I (Drivers\Inc\py32f0xx_bsp_exti.h)(0x66A1EFA9)
+I (Drivers\Inc\py32f0xx_bsp_tim.h)(0x66A365FE)
+I (Drivers\Inc\py32f0xx_bsp_usart.h)(0x66B232CD)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F36D0B4)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdarg.h)(0x5F36D092)
+F (.\readme.txt)(0x666D86BE)()
+F (.\exp.txt)(0x66A23DB8)()
+F (.\Drivers\Src\py32f0xx_ll_adc.c)(0x66033590)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_ll_adc.o -MD)
+I (Drivers\Inc\py32f0xx_ll_adc.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+F (.\Drivers\Src\py32f0xx_ll_dma.c)(0x66033590)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_ll_dma.o -MD)
+I (Drivers\Inc\py32f0xx_ll_dma.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+F (.\Drivers\Src\py32f0xx_ll_exti.c)(0x66033590)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_ll_exti.o -MD)
+I (Drivers\Inc\py32f0xx_ll_exti.h)(0x66A23C1C)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+F (.\Drivers\Src\py32f0xx_ll_gpio.c)(0x66033590)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_ll_gpio.o -MD)
+I (Drivers\Inc\py32f0xx_ll_gpio.h)(0x666C1F39)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+F (.\Drivers\Src\py32f0xx_ll_i2c.c)(0x66033590)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_ll_i2c.o -MD)
+I (Drivers\Inc\py32f0xx_ll_i2c.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+F (.\Drivers\Src\py32f0xx_ll_lptim.c)(0x66033590)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_ll_lptim.o -MD)
+I (Drivers\Inc\py32f0xx_ll_lptim.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+F (.\Drivers\Src\py32f0xx_ll_pwr.c)(0x66033590)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_ll_pwr.o -MD)
+I (Drivers\Inc\py32f0xx_ll_pwr.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+F (.\Drivers\Src\py32f0xx_ll_rcc.c)(0x66033590)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_ll_rcc.o -MD)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+F (.\Drivers\Src\py32f0xx_ll_tim.c)(0x66033590)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_ll_tim.o -MD)
+I (Drivers\Inc\py32f0xx_ll_tim.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+F (.\Drivers\Src\py32f0xx_ll_utils.c)(0x66033590)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_ll_utils.o -MD)
+I (Drivers\Inc\py32f0xx_ll_utils.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_system.h)(0x66033590)
+F (.\Drivers\Src\py32f0xx_bsp_exti.c)(0x66B4E61A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_bsp_exti.o -MD)
+I (Drivers\Inc\py32f0xx_bsp_exti.h)(0x66A1EFA9)
+I (defines.h)(0x6673E327)
+I (hardware_config.h)(0x66A23F01)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_system.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_cortex.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_utils.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_pwr.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_exti.h)(0x66A23C1C)
+I (Drivers\Inc\py32f0xx_ll_adc.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_dma.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_gpio.h)(0x666C1F39)
+I (Drivers\Inc\py32f0xx_ll_i2c.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_usart.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_tim.h)(0x66033590)
+I (software_config.h)(0x66BADCFF)
+I (coroOS\coroOS.h)(0x668B8AF5)
+I (coroOS\pt1.4\pt.h)(0x4520C558)
+I (coroOS\pt1.4\lc.h)(0x421DAE4B)
+I (coroOS\pt1.4\lc-switch.h)(0x448172A7)
+I (coroOS\pt1.4\pt-sem.h)(0x421DAE4B)
+F (.\Drivers\Src\py32f0xx_bsp_gpio.c)(0x66B4E61A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_bsp_gpio.o -MD)
+I (Drivers\Inc\py32f0xx_bsp_gpio.h)(0x6688FC9E)
+I (defines.h)(0x6673E327)
+I (hardware_config.h)(0x66A23F01)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_system.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_cortex.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_utils.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_pwr.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_exti.h)(0x66A23C1C)
+I (Drivers\Inc\py32f0xx_ll_adc.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_dma.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_gpio.h)(0x666C1F39)
+I (Drivers\Inc\py32f0xx_ll_i2c.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_usart.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_tim.h)(0x66033590)
+I (software_config.h)(0x66BADCFF)
+I (coroOS\coroOS.h)(0x668B8AF5)
+I (coroOS\pt1.4\pt.h)(0x4520C558)
+I (coroOS\pt1.4\lc.h)(0x421DAE4B)
+I (coroOS\pt1.4\lc-switch.h)(0x448172A7)
+I (coroOS\pt1.4\pt-sem.h)(0x421DAE4B)
+F (.\Drivers\Src\py32f0xx_bsp_i2c.c)(0x66B3E164)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_bsp_i2c.o -MD)
+I (Drivers\Inc\py32f0xx_bsp_i2c.h)(0x66B3DE50)
+I (defines.h)(0x6673E327)
+I (hardware_config.h)(0x66A23F01)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_system.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_cortex.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_utils.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_pwr.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_exti.h)(0x66A23C1C)
+I (Drivers\Inc\py32f0xx_ll_adc.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_dma.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_gpio.h)(0x666C1F39)
+I (Drivers\Inc\py32f0xx_ll_i2c.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_usart.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_tim.h)(0x66033590)
+I (software_config.h)(0x66BADCFF)
+I (coroOS\coroOS.h)(0x668B8AF5)
+I (coroOS\pt1.4\pt.h)(0x4520C558)
+I (coroOS\pt1.4\lc.h)(0x421DAE4B)
+I (coroOS\pt1.4\lc-switch.h)(0x448172A7)
+I (coroOS\pt1.4\pt-sem.h)(0x421DAE4B)
+F (.\Drivers\Src\py32f0xx_bsp_pwr.c)(0x66B4ECFB)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_bsp_pwr.o -MD)
+I (Drivers\Inc\py32f0xx_bsp_pwr.h)(0x668A191F)
+I (defines.h)(0x6673E327)
+I (hardware_config.h)(0x66A23F01)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_system.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_cortex.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_utils.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_pwr.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_exti.h)(0x66A23C1C)
+I (Drivers\Inc\py32f0xx_ll_adc.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_dma.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_gpio.h)(0x666C1F39)
+I (Drivers\Inc\py32f0xx_ll_i2c.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_usart.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_tim.h)(0x66033590)
+I (software_config.h)(0x66BADCFF)
+I (coroOS\coroOS.h)(0x668B8AF5)
+I (coroOS\pt1.4\pt.h)(0x4520C558)
+I (coroOS\pt1.4\lc.h)(0x421DAE4B)
+I (coroOS\pt1.4\lc-switch.h)(0x448172A7)
+I (coroOS\pt1.4\pt-sem.h)(0x421DAE4B)
+F (.\Drivers\Src\py32f0xx_bsp_rcc.c)(0x66B4E61A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_bsp_rcc.o -MD)
+I (Drivers\Inc\py32f0xx_bsp_rcc.h)(0x6673F462)
+I (defines.h)(0x6673E327)
+I (hardware_config.h)(0x66A23F01)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_system.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_cortex.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_utils.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_pwr.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_exti.h)(0x66A23C1C)
+I (Drivers\Inc\py32f0xx_ll_adc.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_dma.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_gpio.h)(0x666C1F39)
+I (Drivers\Inc\py32f0xx_ll_i2c.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_usart.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_tim.h)(0x66033590)
+I (software_config.h)(0x66BADCFF)
+F (.\Drivers\Src\py32f0xx_bsp_tim.c)(0x66A38182)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_bsp_tim.o -MD)
+I (Drivers\Inc\py32f0xx_bsp_tim.h)(0x66A365FE)
+I (defines.h)(0x6673E327)
+I (hardware_config.h)(0x66A23F01)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_system.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_cortex.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_utils.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_pwr.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_exti.h)(0x66A23C1C)
+I (Drivers\Inc\py32f0xx_ll_adc.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_dma.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_gpio.h)(0x666C1F39)
+I (Drivers\Inc\py32f0xx_ll_i2c.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_usart.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_tim.h)(0x66033590)
+I (software_config.h)(0x66BADCFF)
+I (coroOS\coroOS.h)(0x668B8AF5)
+I (coroOS\pt1.4\pt.h)(0x4520C558)
+I (coroOS\pt1.4\lc.h)(0x421DAE4B)
+I (coroOS\pt1.4\lc-switch.h)(0x448172A7)
+I (coroOS\pt1.4\pt-sem.h)(0x421DAE4B)
+F (.\Drivers\Src\py32f0xx_bsp_usart.c)(0x669FBC5F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/py32f0xx_bsp_usart.o -MD)
+I (Drivers\Inc\py32f0xx_bsp_usart.h)(0x66B232CD)
+I (defines.h)(0x6673E327)
+I (hardware_config.h)(0x66A23F01)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_system.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_cortex.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_utils.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_pwr.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_exti.h)(0x66A23C1C)
+I (Drivers\Inc\py32f0xx_ll_adc.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_dma.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_gpio.h)(0x666C1F39)
+I (Drivers\Inc\py32f0xx_ll_i2c.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_usart.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_tim.h)(0x66033590)
+I (software_config.h)(0x66BADCFF)
+I (coroOS\coroOS.h)(0x668B8AF5)
+I (coroOS\pt1.4\pt.h)(0x4520C558)
+I (coroOS\pt1.4\lc.h)(0x421DAE4B)
+I (coroOS\pt1.4\lc-switch.h)(0x448172A7)
+I (coroOS\pt1.4\pt-sem.h)(0x421DAE4B)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F36D0B4)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdarg.h)(0x5F36D092)
+F (.\coroOS\coroOS.c)(0x66753DBD)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/coroos.o -MD)
+I (coroOS\coroOS.h)(0x668B8AF5)
+I (coroOS\pt1.4\pt.h)(0x4520C558)
+I (coroOS\pt1.4\lc.h)(0x421DAE4B)
+I (coroOS\pt1.4\lc-switch.h)(0x448172A7)
+I (coroOS\pt1.4\pt-sem.h)(0x421DAE4B)
+I (defines.h)(0x6673E327)
+I (hardware_config.h)(0x66A23F01)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_system.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_cortex.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_utils.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_pwr.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_exti.h)(0x66A23C1C)
+I (Drivers\Inc\py32f0xx_ll_adc.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_dma.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_gpio.h)(0x666C1F39)
+I (Drivers\Inc\py32f0xx_ll_i2c.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_usart.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_tim.h)(0x66033590)
+I (software_config.h)(0x66BADCFF)
+F (.\Drivers\SW6306\sw6306.c)(0x66BADD67)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ./ -I ./Inc -I ./Drivers/Inc -I ./coroOS -I ./coroOS/pt1.4 -I ./Applications -I ./Drivers/SW6306-I./RTE/_PY32F030x6_Project-IC:/Users/TKWTL/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/TKWTL/AppData/Local/Arm/Packs/Puya/PY32F0xx_DFP/1.1.0/Device/Include-D__UVISION_VERSION="533" -D_RTE_ -D_RTE_ -DPY32F030x6 -DUSE_FULL_LL_DRIVER-o ./objects/sw6306.o -MD)
+I (Drivers\SW6306\sw6306.h)(0x66BADC8E)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F36D0A8)
+I (main.h)(0x668A18E1)
+I (defines.h)(0x6673E327)
+I (hardware_config.h)(0x66A23F01)
+I (Drivers\Inc\py32f0xx_ll_rcc.h)(0x66033590)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f0xx.h)(0x634556B6)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\py32f030x6.h)(0x6343C480)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm0plus.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F4ADE)
+I (C:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\Include\system_py32f0xx.h)(0x6343C480)
+I (Drivers\Inc\py32f0xx_ll_bus.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_system.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_cortex.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_utils.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_pwr.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_exti.h)(0x66A23C1C)
+I (Drivers\Inc\py32f0xx_ll_adc.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_dma.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_gpio.h)(0x666C1F39)
+I (Drivers\Inc\py32f0xx_ll_i2c.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_usart.h)(0x66033590)
+I (Drivers\Inc\py32f0xx_ll_tim.h)(0x66033590)
+I (software_config.h)(0x66BADCFF)
+I (coroOS\coroOS.h)(0x668B8AF5)
+I (coroOS\pt1.4\pt.h)(0x4520C558)
+I (coroOS\pt1.4\lc.h)(0x421DAE4B)
+I (coroOS\pt1.4\lc-switch.h)(0x448172A7)
+I (coroOS\pt1.4\pt-sem.h)(0x421DAE4B)
+I (Applications\bsp_py32f030x6.h)(0x66991A37)
+I (Drivers\Inc\py32f0xx_bsp_rcc.h)(0x6673F462)
+I (Drivers\Inc\py32f0xx_bsp_i2c.h)(0x66B3DE50)
+I (Drivers\Inc\py32f0xx_bsp_pwr.h)(0x668A191F)
+I (Drivers\Inc\py32f0xx_bsp_gpio.h)(0x6688FC9E)
+I (Drivers\Inc\py32f0xx_bsp_exti.h)(0x66A1EFA9)
+I (Drivers\Inc\py32f0xx_bsp_tim.h)(0x66A365FE)
+I (Drivers\Inc\py32f0xx_bsp_usart.h)(0x66B232CD)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F36D0B4)
+I (D:\Program Files\Keil_v5\ARM\ARMCLANG\include\stdarg.h)(0x5F36D092)
