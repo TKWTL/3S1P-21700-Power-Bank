@@ -1,11 +1,15 @@
 #include "py32f0xx_bsp_i2c.h"
+//I2CÁ≥ªÁªüÁä∂ÊÄÅ‰∏éÂºÇÊ≠•Êìç‰Ωú‰º†ÈÄíÊï∞ÊçÆÁî®ÂÖ®Â±ÄÂèòÈáè
+//Âú®Á©∫Èó≤Êó∂Ë¢´Á¨¨‰∏Ä‰∏™ASYNCÂáΩÊï∞Ë£ÖÂ°´ÂÄºÔºåI2C‰º†ËæìËøáÁ®ã‰∏≠Êó†Ê≥ïË¢´Â§ñÈÉ®‰øÆÊîπ
+volatile struct I2C_StatusTypedef I2C1_Status;
+
+struct pt_sem i2c_mutex;
 
 void I2C_Unlock(void);
-void BSP_I2C_Config(void)
-{
+void BSP_I2C_Config(void){
+    //Á´ØÂè£ÂàùÂßãÂåñ
     I2C_Unlock();
     LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
-    //LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
     //SCL
     GPIO_InitStruct.Pin = SCL1_PIN;
     GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
@@ -16,18 +20,12 @@ void BSP_I2C_Config(void)
     LL_GPIO_Init(SCL1_PORT, &GPIO_InitStruct);
     //SDA
     GPIO_InitStruct.Pin = SDA1_PIN;
-    GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
-    GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_HIGH;
-    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
-    GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
-    GPIO_InitStruct.Alternate = LL_GPIO_AF_12;
     LL_GPIO_Init(SDA1_PORT, &GPIO_InitStruct);
 
-    
+    //Ê®°ÂùóÂàùÂßãÂåñ
     LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_I2C1);
     LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_I2C1);
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_I2C1);
-
     LL_I2C_EnableReset(I2C1);
     LL_I2C_DisableReset(I2C1);
 
@@ -42,23 +40,36 @@ void BSP_I2C_Config(void)
     I2C_InitStruct.OwnAddress1     = I2C_ADDRESS;
     I2C_InitStruct.TypeAcknowledge = LL_I2C_NACK;
     LL_I2C_Init(I2C1, &I2C_InitStruct);
-
-    /* Enale clock stretch (reset default: on) */
-    // LL_I2C_EnableClockStretching(I2C1);
-  
-    /* Enable general call (reset default: off) */
-    // LL_I2C_EnableGeneralCall(I2C1);
-    #ifdef I2C_USE_IT
-        NVIC_SetPriority(I2C1_IRQn, 0);
-        NVIC_EnableIRQ(I2C1_IRQn);
-        LL_I2C_EnableIT_ERR(I2C1);
-    #endif
+    //LL_I2C_EnableGeneralCall(I2C1); //Enable general call (reset default: off)
+    NVIC_SetPriority(I2C1_IRQn, 0);
+    NVIC_EnableIRQ(I2C1_IRQn);
+    LL_I2C_EnableIT_ERR(I2C1);
     LL_I2C_DisableIT_BUF(I2C1);
-    LL_I2C_DisableIT_EVT(I2C1);   
+    LL_I2C_DisableIT_EVT(I2C1);
+    I2C1_Status.i2c1_status = I2C_IDLE;
+    I2C1_Status.waiting_priority = I2C_LOWEREST_PRIORITY;
+    //DMAÂàùÂßãÂåñ
+    LL_AHB1_GRP1_EnableClock(I2C_DMA_BUS);
+    LL_DMA_InitTypeDef DMAInit = {
+        .Direction = LL_DMA_DIRECTION_MEMORY_TO_PERIPH,
+        .Mode = LL_DMA_MODE_NORMAL,
+        .PeriphOrM2MSrcIncMode = LL_DMA_PERIPH_NOINCREMENT,
+        .MemoryOrM2MDstIncMode = LL_DMA_MEMORY_INCREMENT,
+        .PeriphOrM2MSrcDataSize = LL_DMA_PDATAALIGN_BYTE,
+        .MemoryOrM2MDstDataSize = LL_DMA_MDATAALIGN_BYTE,
+        .Priority = I2C_DMA_PRIORITY,
+    };
+    LL_DMA_Init(DMA1, I2C_DMA_CHANNEL, (LL_DMA_InitTypeDef*)&DMAInit);
+    I2C_DMA_CHANNEL_SET_RESPOND_SPEED(LL_SYSCFG_DMA_ACKLVL_FAST);
+    LL_DMA_SetPeriphAddress(DMA1, I2C_DMA_CHANNEL, LL_I2C_DMA_GetRegAddr(I2C1));
+    LL_DMA_EnableIT_TC(DMA1, I2C_DMA_CHANNEL);//‰ΩøËÉΩ‰º†ËæìÂÆåÊàê‰∏≠Êñ≠
+    NVIC_SetPriority(I2C_DMA_IRQn, 0);
+    NVIC_EnableIRQ(I2C_DMA_IRQn);
+    I2C1_Status.i2c1_dma_status = I2C_DMA_IDLE;
+    PT_SEM_INIT(&i2c_mutex, 1);
 }
 
-ErrorStatus APP_I2C_TestAddress(uint8_t dev_addr)
-{
+ErrorStatus APP_I2C_TestAddress(uint8_t dev_addr){
     uint16_t timeout = 0xFFF;
     while(LL_I2C_IsActiveFlag_BUSY(I2C1));
     /* Disable Pos */
@@ -88,8 +99,290 @@ ErrorStatus APP_I2C_TestAddress(uint8_t dev_addr)
     }
 }
 
-void APP_I2C_Transmit(uint8_t devAddress, uint8_t memAddress, uint8_t *pData, uint16_t len)
+void I2C_Unlock(void){
+    uint8_t i,delay;
+    LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+    //SCL
+    LL_GPIO_ResetOutputPin(SCL1_PORT,SCL1_PIN);
+    GPIO_InitStruct.Pin = SCL1_PIN;
+    GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+    GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_HIGH;
+    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+    GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
+    GPIO_InitStruct.Alternate = LL_GPIO_AF_12;
+    LL_GPIO_Init(SCL1_PORT, &GPIO_InitStruct);
+    //SDA
+    LL_GPIO_SetOutputPin(SDA1_PORT,SDA1_PIN);
+    GPIO_InitStruct.Pin = SDA1_PIN;
+    GPIO_InitStruct.Mode = LL_GPIO_MODE_INPUT;
+    GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_HIGH;
+    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
+    GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
+    GPIO_InitStruct.Alternate = LL_GPIO_AF_12;
+    LL_GPIO_Init(SDA1_PORT, &GPIO_InitStruct);
+    
+    if(LL_GPIO_IsInputPinSet(SDA1_PORT,SDA1_PIN)==0){
+        for(i = 0;i<9;i++){
+            LL_GPIO_SetOutputPin(SCL1_PORT,SCL1_PIN);
+            delay = 255;
+            while(delay > 1) delay--;
+            LL_GPIO_ResetOutputPin(SCL1_PORT,SCL1_PIN);
+            delay = 255;
+            while(delay > 1) delay--;
+            if(LL_GPIO_IsInputPinSet(SDA1_PORT,SDA1_PIN)==0) break;
+        }
+    }
+}
+
+void I2C_Diagnosis(void){
+    LL_I2C_EnableReset(I2C1);
+    BSP_I2C_Config();
+    I2C1_Status.i2c1_status = I2C_IDLE;
+}
+
+I2C_tranceiver_status GetI2CStatus(){
+    return I2C1_Status.i2c1_status;
+}
+
+//ÂêëÂºÇÊ≠•ËøõÁ®ãÂèëÂ∏ÉÂèëÈÄÅ‰ªªÂä°ÔºåÊàêÂäüÊó∂ËøîÂõû1
+uint8_t ASYNC_I2C_Transmit(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len, uint8_t priority, uint8_t *flag){
+//    if(priority > I2C1_Status.waiting_priority) return 0;
+//    else if(LL_I2C_IsActiveFlag_BUSY(I2C1) == 0 && I2C1_Status.i2c1_status == I2C_IDLE){
+        I2C1_Status.i2c1_status = I2C_TX_ADDR;
+        I2C1_Status.async_dev_addr = dev_addr & (uint8_t)(~0x01);
+        I2C1_Status.async_reg_addr = reg_addr;
+        I2C1_Status.async_data = data;
+        I2C1_Status.async_len = len;
+        I2C1_Status.async_flag = flag;
+        *I2C1_Status.async_flag = 0;
+        LL_I2C_EnableIT_TX(I2C1);
+        LL_I2C_DisableBitPOS(I2C1);
+        LL_I2C_GenerateStartCondition(I2C1);
+        if(priority == I2C1_Status.waiting_priority) I2C1_Status.waiting_priority = I2C_LOWEREST_PRIORITY;
+        return 1;
+//    }
+//    else if(priority < I2C1_Status.waiting_priority) I2C1_Status.waiting_priority = priority;           
+//    return 0;
+}
+//ÂêëÂºÇÊ≠•ËøõÁ®ãÂèëÂ∏ÉÊé•Êî∂‰ªªÂä°ÔºåÊàêÂäüÊó∂ËøîÂõû1
+uint8_t ASYNC_I2C_Receive(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len, uint8_t priority, uint8_t *flag){
+//    if(priority > I2C1_Status.waiting_priority) return 0;
+//    else if(LL_I2C_IsActiveFlag_BUSY(I2C1) == 0 && I2C1_Status.i2c1_status == I2C_IDLE){
+        I2C1_Status.i2c1_status = I2C_RX_POINTER_ADDR;
+        I2C1_Status.async_dev_addr = dev_addr & (uint8_t)(~0x01);
+        I2C1_Status.async_reg_addr = reg_addr;
+        I2C1_Status.async_data = data;
+        I2C1_Status.async_len = len;
+        I2C1_Status.async_flag = flag;
+        *I2C1_Status.async_flag = 0;
+        LL_I2C_EnableIT_TX(I2C1);
+        LL_I2C_DisableBitPOS(I2C1);
+        LL_I2C_GenerateStartCondition(I2C1);
+        if(priority == I2C1_Status.waiting_priority) I2C1_Status.waiting_priority = I2C_LOWEREST_PRIORITY;
+        return 1;
+//    }
+//    else if(priority < I2C1_Status.waiting_priority) I2C1_Status.waiting_priority = priority;           
+//    return 0;
+}
+
+void I2C1_IRQHandler()//ËØ•‰∏≠Êñ≠ÊúçÂä°ÂáΩÊï∞ÂêçÁß∞Âú®startup_py32f030x6.h‰∏≠ÂÆö‰πâ
 {
+    //Ê≠£Â∏∏‰º†Ëæì
+    if(LL_I2C_IsActiveFlag_SB(I2C1))//STARTÂèëÈÄÅÂÆåÊàê(EV5)
+    {
+        switch(I2C1_Status.i2c1_status)
+        {
+            case I2C_TX_ADDR:
+            case I2C_RX_POINTER_ADDR:
+                LL_I2C_TransmitData8(I2C1,I2C1_Status.async_dev_addr);//ÂèëÈÄÅ‰ªéÊú∫Âú∞ÂùÄÔºåÂÜôÂÖ•
+                break;
+            case I2C_RX:
+                LL_I2C_TransmitData8(I2C1,(I2C1_Status.async_dev_addr | 0x01));//ÂèëÈÄÅ‰ªéÊú∫Âú∞ÂùÄÔºåËØªÂèñ
+                break;
+            default:
+                break;
+        }
+    }
+    if(LL_I2C_IsActiveFlag_ADDR(I2C1))//‰ªéÊú∫ÂìçÂ∫î(EV6)
+    {
+        LL_I2C_ClearFlag_ADDR(I2C1);//Ê∏ÖÊ†áÂøó‰Ωç
+        switch(I2C1_Status.i2c1_status)
+        {
+            case I2C_TX_ADDR:
+                I2C1_Status.i2c1_status = I2C_TX_ACKED;
+                break;
+            case I2C_RX_POINTER_ADDR:
+                I2C1_Status.i2c1_status = I2C_RX_POINTER_ACKED;
+                break;
+            case I2C_RX://ËØªÂèñÊ®°ÂºèÂèëÈÄÅÂÆå‰ªéÊú∫Âú∞ÂùÄÔºåËøôÊó∂Â∑≤ÁªèÂêØÂä®Â≠óËäÇÊé•Êî∂
+                if (I2C1_Status.async_len == 0U) 
+                {
+                    LL_I2C_DisableIT_RX(I2C1);
+                    LL_I2C_GenerateStopCondition(I2C1);
+                    LL_I2C_DisableIT_RX(I2C1);
+                    *I2C1_Status.async_flag = I2C_FLAG_DONE;
+                    I2C1_Status.i2c1_status = I2C_IDLE;//0Â≠óËäÇÊé•Êî∂ÁªìÊùü‰∫Ü
+                }
+                else if(I2C1_Status.async_len == 1U)
+                {
+                    LL_I2C_AcknowledgeNextData(I2C1, LL_I2C_NACK);
+                    LL_I2C_GenerateStopCondition(I2C1);
+                }
+                else if(I2C1_Status.async_len == 2U)
+                {
+                    LL_I2C_AcknowledgeNextData(I2C1, LL_I2C_ACK);
+                }
+                else LL_I2C_AcknowledgeNextData(I2C1, LL_I2C_ACK);
+                break;
+            default:
+                break;
+        }
+    }
+    if(LL_I2C_IsActiveFlag_BTF(I2C1))//EV8_2
+    {
+        switch(I2C1_Status.i2c1_status)
+        {
+            case I2C_RX_POINTER_SENT://ÂØÑÂ≠òÂô®Âú∞ÂùÄÂèëÈÄÅÂÆåÊàê
+                LL_I2C_DisableIT_TX(I2C1);
+                LL_I2C_EnableIT_RX(I2C1);
+                I2C1_Status.i2c1_status = I2C_RX;
+                LL_I2C_GenerateStartCondition(I2C1);//Repeat Start
+                break;
+            case I2C_RX:
+                if(I2C1_Status.async_len == 2U)// 2/3Â≠óËäÇÊé•Êî∂Á≠âÂà∞‰∫ÜBTF
+                {
+                    LL_I2C_GenerateStopCondition(I2C1);
+                    *I2C1_Status.async_data++ = LL_I2C_ReceiveData8(I2C1);
+                    I2C1_Status.async_len--;
+                    *I2C1_Status.async_data++ = LL_I2C_ReceiveData8(I2C1);
+                    I2C1_Status.async_len--;
+                    LL_I2C_DisableIT_RX(I2C1);
+                    *I2C1_Status.async_flag = I2C_FLAG_DONE;
+                    I2C1_Status.i2c1_status = I2C_IDLE;// 2/3Â≠óËäÇÊé•Êî∂ÁªìÊùü‰∫Ü
+                }
+                else if(I2C1_Status.async_len == 3U)//3Â≠óËäÇÊé•Êî∂Á≠âÂà∞‰∫ÜBTF
+                {
+                    LL_I2C_AcknowledgeNextData(I2C1, LL_I2C_NACK);
+                    *I2C1_Status.async_data++ = LL_I2C_ReceiveData8(I2C1);
+                    I2C1_Status.async_len--;
+                }
+                break;
+            case I2C_TX_ING:  
+                if(I2C1_Status.i2c1_dma_status == I2C_DMA_DONE){                //ÊúÄÂêé‰∏Ä‰ΩçÊï∞ÊçÆÂ∑≤ÂèëÈÄÅ(EV8_2)
+                    LL_I2C_DisableIT_EVT(I2C1);
+                    LL_I2C_GenerateStopCondition(I2C1);
+                    *I2C1_Status.async_flag = I2C_FLAG_DONE;
+                    I2C1_Status.i2c1_dma_status = I2C_DMA_IDLE;
+                    I2C1_Status.i2c1_status = I2C_IDLE;                         //ÂèëÈÄÅÁªìÊùü‰∫Ü
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    if(LL_I2C_IsActiveFlag_RXNE(I2C1) && I2C1_Status.async_len > 0U && I2C1_Status.i2c1_status == I2C_RX)
+    { //EV7ÔºåÊé•Êî∂Âå∫ÈùûÁ©∫„ÄÇEV6ÂêéÔºåÂÖ∂Â∞ÜËá™Âä®‰∫ßÁîü(Èô§‰∫Ülen==0ÁöÑÊÉÖÂÜµ)
+        switch(I2C1_Status.async_len)
+        {
+            case 1U:
+                *I2C1_Status.async_data++ = LL_I2C_ReceiveData8(I2C1);//ÂÖàÊî∂Êï∞ÊçÆ
+                I2C1_Status.async_len--;
+                LL_I2C_DisableIT_RX(I2C1);
+                *I2C1_Status.async_flag = I2C_FLAG_DONE;
+                I2C1_Status.i2c1_status = I2C_IDLE;//1Â≠óËäÇÊé•Êî∂ÁªìÊùü‰∫Ü
+                break;
+            case 2U:
+                LL_I2C_AcknowledgeNextData(I2C1, LL_I2C_NACK);//‰∏çÂìçÂ∫î‰∏ã‰∏Ä‰∏™Êï∞ÊçÆ
+                LL_I2C_DisableIT_BUF(I2C1);//ÂÖ≥RXNE‰∏≠Êñ≠
+                break;
+            case 3U:
+                LL_I2C_DisableIT_BUF(I2C1);//ÂÖ≥RXNE‰∏≠Êñ≠
+                break;
+            default:
+                *I2C1_Status.async_data++ = LL_I2C_ReceiveData8(I2C1);//ÂÖàÊî∂Êï∞ÊçÆ
+                I2C1_Status.async_len--;
+                if (LL_I2C_IsActiveFlag_BTF(I2C1) == 1)//Â¶ÇÊûúÊúâ‰∏§‰∏™Â≠óËäÇÂæÖÊé•Êî∂
+                {
+                    *I2C1_Status.async_data++ = LL_I2C_ReceiveData8(I2C1);//ÂÜçÊî∂‰∏Ä‰∏™
+                    I2C1_Status.async_len--;
+                }
+                break;            
+        }                            
+    }
+    if(LL_I2C_IsActiveFlag_TXE(I2C1))//ÂèëÈÄÅÂå∫‰∏∫Á©∫(EV8)ÔºàÈ´òÂπ≤Êâ∞ÊÉÖÂÜµ‰∏ã‰ºö‰∫ßÁîüTXE‰∏∫ÁúüÂêåÊó∂Áä∂ÊÄÅÂÅúÁïôÂú®TX_ADDR‰∏îÊó†AFÈîôËØØÁöÑÊÉÖÂÜµÔºâ
+    {
+        switch(I2C1_Status.i2c1_status)
+        {
+            case I2C_TX_ACKED://(EV8_1)  
+            case I2C_TX_ADDR://Â∞èË°•‰∏Å  
+                LL_I2C_TransmitData8(I2C1,I2C1_Status.async_reg_addr);          //ÂèëÈÄÅ‰ªéÊú∫ÂØÑÂ≠òÂô®Âú∞ÂùÄÂøÖÈ°ªÊèêÂâç‰∫éDMAÂèëÈÄÅÂê¶Âàô3Â≠óËäÇ‰ª•‰∏ãÂèë‰∏çÂá∫Âéª
+                I2C1_Status.i2c1_status = I2C_TX_ING;                           //ËÆæÁΩÆÁä∂ÊÄÅ
+                if(I2C1_Status.async_len > 1){
+                    I2C_DMA_CHANNEL_REMAP(LL_SYSCFG_DMA_MAP_I2C_TX);                //ÈáçÊò†Â∞ÑÂèëÈÄÅÈÄöÈÅì
+                    LL_DMA_SetDataTransferDirection(DMA1, I2C_DMA_CHANNEL, LL_DMA_DIRECTION_MEMORY_TO_PERIPH);//ËÆæÁΩÆÊñπÂêë
+                    LL_DMA_SetMemoryAddress(DMA1, I2C_DMA_CHANNEL, (uint32_t)I2C1_Status.async_data);//ËÆæÁΩÆÁºìÂÜ≤Âå∫
+                    LL_DMA_SetDataLength(DMA1, I2C_DMA_CHANNEL, I2C1_Status.async_len);//ËÆæÁΩÆÈïøÂ∫¶
+                    LL_DMA_EnableChannel(DMA1, I2C_DMA_CHANNEL);                    //‰ΩøËÉΩÈÄöÈÅì  
+                }
+                break;
+            case I2C_TX_ING:                                                    //ÂºÄÂßãÂèëÈÄÅ
+                if(LL_I2C_IsEnabledIT_BUF(I2C1)){                               //Â§öÂ≠óËäÇÔºåÂêØÂä®DMA
+                    if(I2C1_Status.i2c1_dma_status == I2C_DMA_IDLE && I2C1_Status.async_len > 1){
+                        I2C1_Status.i2c1_dma_status = I2C_DMA_BUSY;
+                        LL_I2C_EnableDMAReq_TX(I2C1);
+                    }
+                    else if(I2C1_Status.async_len == 1){                        //ÂçïÂ≠óËäÇÔºåÁõ¥Êé•ÂèëÈÄÅÁ≠âBTF
+                        I2C1_Status.async_len--;
+                        LL_I2C_TransmitData8(I2C1,*I2C1_Status.async_data);
+                        I2C1_Status.i2c1_dma_status = I2C_DMA_DONE;
+                    }
+                    LL_I2C_DisableIT_BUF(I2C1);                                 //ÂÖ≥TXE‰∏≠Êñ≠
+                }
+                break;
+            case I2C_RX_POINTER_ACKED:
+                LL_I2C_TransmitData8(I2C1,I2C1_Status.async_reg_addr);//ÂèëÈÄÅ‰ªéÊú∫ÂØÑÂ≠òÂô®Âú∞ÂùÄ
+                I2C1_Status.i2c1_status = I2C_RX_POINTER_SENT;
+                break;
+            default:
+                break;
+        }
+    } 
+    
+    //ÈîôËØØÂ§ÑÁêÜ
+    if(LL_I2C_IsActiveFlag_AF(I2C1)){//Êó†Â∫îÁ≠î
+        LL_I2C_ClearFlag_AF(I2C1);
+        //I2C_Diagnosis();
+        LL_I2C_DisableIT_BUF(I2C1);
+        LL_I2C_DisableIT_EVT(I2C1);   
+        LL_I2C_GenerateStopCondition(I2C1);
+        I2C1_Status.i2c1_status = I2C_IDLE;
+        *I2C1_Status.async_flag = I2C_FLAG_NORESPONSE;
+    }
+    if(LL_I2C_IsActiveFlag_BERR(I2C1)){//ÊÄªÁ∫øÈîôËØØ
+        LL_I2C_ClearFlag_BERR(I2C1);
+        I2C_Diagnosis();
+        LL_I2C_DisableIT_BUF(I2C1);
+        LL_I2C_DisableIT_EVT(I2C1);   
+        LL_I2C_GenerateStopCondition(I2C1);
+        I2C1_Status.i2c1_status = I2C_IDLE;
+        *I2C1_Status.async_flag = I2C_FLAG_BUSERROR;
+    }
+}
+
+void I2C_DMA_IRQHandler(){//DMA ‰∏≠Êñ≠ÊúçÂä°ÂáΩÊï∞
+    LL_DMA_DisableChannel(DMA1, I2C_DMA_CHANNEL);
+    #if I2C_DMA_CHANNEL == LL_DMA_CHANNEL_1
+        LL_DMA_ClearFlag_GI1(DMA1);
+    #elif I2C_DMA_CHANNEL == LL_DMA_CHANNEL_2
+        LL_DMA_ClearFlag_GI2(DMA1);
+    #elif I2C_DMA_CHANNEL == LL_DMA_CHANNEL_3
+        LL_DMA_ClearFlag_GI3(DMA1);
+    #endif
+    I2C1_Status.i2c1_dma_status = I2C_DMA_DONE;
+}
+
+
+void APP_I2C_Transmit(uint8_t devAddress, uint8_t memAddress, uint8_t *pData, uint16_t len){
     while(LL_I2C_IsActiveFlag_BUSY(I2C1));
     LL_I2C_DisableBitPOS(I2C1);
 
@@ -125,8 +418,7 @@ void APP_I2C_Transmit(uint8_t devAddress, uint8_t memAddress, uint8_t *pData, ui
     LL_I2C_GenerateStopCondition(I2C1);
 }
 
-void APP_I2C_Receive(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len)
-{
+void APP_I2C_Receive(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len){
     while(LL_I2C_IsActiveFlag_BUSY(I2C1));
     /* Disable Pos */
     LL_I2C_DisableBitPOS(I2C1);
@@ -252,292 +544,3 @@ void APP_I2C_Receive(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t
         
     }
 }
-
-//I2CœµÕ≥◊¥Ã¨”Î“Ï≤Ω≤Ÿ◊˜¥´µ› ˝æ›”√»´æ÷±‰¡ø
-//‘⁄ø’œ– ±±ªµ⁄“ª∏ˆASYNC∫Ø ˝◊∞ÃÓ÷µ£¨I2C¥´ ‰π˝≥Ã÷–Œﬁ∑®±ªÕ‚≤ø–ﬁ∏ƒ
-volatile struct I2C_StatusTypedef I2C1_Status;
-
-void I2C_Unlock(void)
-{
-    uint8_t i,delay;
-    LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
-    //SCL
-    LL_GPIO_ResetOutputPin(SCL1_PORT,SCL1_PIN);
-    GPIO_InitStruct.Pin = SCL1_PIN;
-    GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-    GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_HIGH;
-    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-    GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
-    GPIO_InitStruct.Alternate = LL_GPIO_AF_12;
-    LL_GPIO_Init(SCL1_PORT, &GPIO_InitStruct);
-    //SDA
-    LL_GPIO_SetOutputPin(SDA1_PORT,SDA1_PIN);
-    GPIO_InitStruct.Pin = SDA1_PIN;
-    GPIO_InitStruct.Mode = LL_GPIO_MODE_INPUT;
-    GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_HIGH;
-    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
-    GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
-    GPIO_InitStruct.Alternate = LL_GPIO_AF_12;
-    LL_GPIO_Init(SDA1_PORT, &GPIO_InitStruct);
-    
-    if(LL_GPIO_IsInputPinSet(SDA1_PORT,SDA1_PIN)==0)
-    {
-        for(i = 0;i<9;i++)
-        {
-            LL_GPIO_SetOutputPin(SCL1_PORT,SCL1_PIN);
-            delay = 255;
-            while(delay > 1) delay--;
-            LL_GPIO_ResetOutputPin(SCL1_PORT,SCL1_PIN);
-            delay = 255;
-            while(delay > 1) delay--;
-            if(LL_GPIO_IsInputPinSet(SDA1_PORT,SDA1_PIN)==0) break;
-        }
-    }
-}
-
-void I2C_Diagnosis(void)
-{
-    LL_I2C_EnableReset(I2C1);
-    BSP_I2C_Config();
-    I2C1_Status.i2c1_status = I2C_IDLE;
-}
-
-#ifdef I2C_WDT_THREAD
-uint32_t i2cwdtovf;
-THRD_DECLARE(thread_i2c_wdt)
-{
-    THRD_BEGIN;
-    while(1)
-    {
-        if(I2C1_Status.i2c1_status != I2C_IDLE && i2cwdtovf > millis) I2C_Diagnosis();//÷ª‘⁄I2CªÓ∂Ø◊¥Ã¨œ¬…˙–ß
-        if(LL_I2C_IsActiveFlag_BUSY(I2C1) && I2C1_Status.i2c1_status == I2C_IDLE) I2C_Diagnosis();
-        THRD_YIELD;
-    }
-    THRD_END;
-}
-#endif
-
-//œÚ“Ï≤ΩΩ¯≥Ã∑¢≤º∑¢ÀÕ»ŒŒÒ£¨≥…π¶ ±∑µªÿ1
-uint8_t ASYNC_I2C_Transmit(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len, uint8_t *flag)
-{
-    if(LL_I2C_IsActiveFlag_BUSY(I2C1) == 0 && I2C1_Status.i2c1_status == I2C_IDLE)
-    {
-        I2C1_Status.i2c1_status = I2C_TX_ADDR;
-        I2C1_Status.async_dev_addr = dev_addr & (uint8_t)(~0x01);
-        I2C1_Status.async_reg_addr = reg_addr;
-        I2C1_Status.async_data = data;
-        I2C1_Status.async_len = len;
-        I2C1_Status.async_flag = flag;
-        *I2C1_Status.async_flag = 0;
-        #ifdef I2C_USE_IT
-            LL_I2C_EnableIT_TX(I2C1);
-        #endif
-        #ifdef I2C_WDT_THREAD                                                   //…Ë÷√≥¨ ±
-            i2cwdtovf = millis + I2C_TIMEOUT_TIME;
-        #endif
-        LL_I2C_DisableBitPOS(I2C1);
-        LL_I2C_GenerateStartCondition(I2C1);
-        return 1;
-    }
-    else return 0;
-}
-//œÚ“Ï≤ΩΩ¯≥Ã∑¢≤ºΩ” ’»ŒŒÒ£¨≥…π¶ ±∑µªÿ1
-uint8_t ASYNC_I2C_Receive(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len, uint8_t *flag)
-{
-    if(LL_I2C_IsActiveFlag_BUSY(I2C1) == 0 && I2C1_Status.i2c1_status == I2C_IDLE)
-    {
-        I2C1_Status.i2c1_status = I2C_RX_POINTER_ADDR;
-        I2C1_Status.async_dev_addr = dev_addr & (uint8_t)(~0x01);
-        I2C1_Status.async_reg_addr = reg_addr;
-        I2C1_Status.async_data = data;
-        I2C1_Status.async_len = len;
-        I2C1_Status.async_flag = flag;
-        *I2C1_Status.async_flag = 0;      
-        #ifdef I2C_USE_IT
-            LL_I2C_EnableIT_TX(I2C1);
-        #endif
-        #ifdef I2C_WDT_THREAD                                                   //…Ë÷√≥¨ ±
-            i2cwdtovf = millis + I2C_TIMEOUT_TIME;
-        #endif  
-        LL_I2C_DisableBitPOS(I2C1);
-        LL_I2C_GenerateStartCondition(I2C1);
-        return 1;
-    }
-    else return 0;
-}
-
-
-#ifdef I2C_USE_IT
-void I2C1_IRQHandler()//∏√÷–∂œ∑˛ŒÒ∫Ø ˝√˚≥∆‘⁄startup_py32f030x6.h÷–∂®“Â
-{
-    #ifdef I2C_WDT_THREAD                                                       //Œππ∑
-        i2cwdtovf = millis + I2C_TIMEOUT_TIME;
-    #endif
-    //’˝≥£¥´ ‰
-    if(LL_I2C_IsActiveFlag_SB(I2C1))//START∑¢ÀÕÕÍ≥…(EV5)
-    {
-        switch(I2C1_Status.i2c1_status)
-        {
-            case I2C_TX_ADDR:
-            case I2C_RX_POINTER_ADDR:
-                LL_I2C_TransmitData8(I2C1,I2C1_Status.async_dev_addr);//∑¢ÀÕ¥”ª˙µÿ÷∑£¨–¥»Î
-                break;
-            case I2C_RX:
-                LL_I2C_TransmitData8(I2C1,(I2C1_Status.async_dev_addr | 0x01));//∑¢ÀÕ¥”ª˙µÿ÷∑£¨∂¡»°
-                break;
-            default:
-                break;
-        }
-    }
-    if(LL_I2C_IsActiveFlag_ADDR(I2C1))//¥”ª˙œÏ”¶(EV6)
-    {
-        LL_I2C_ClearFlag_ADDR(I2C1);//«Â±Í÷æŒª
-        switch(I2C1_Status.i2c1_status)
-        {
-            case I2C_TX_ADDR:
-                I2C1_Status.i2c1_status = I2C_TX_ACKED;
-                break;
-            case I2C_RX_POINTER_ADDR:
-                I2C1_Status.i2c1_status = I2C_RX_POINTER_ACKED;
-                break;
-            case I2C_RX://∂¡»°ƒ£ Ω∑¢ÀÕÕÍ¥”ª˙µÿ÷∑£¨’‚ ±“—æ≠∆Ù∂Ø◊÷Ω⁄Ω” ’
-                if (I2C1_Status.async_len == 0U) 
-                {
-                    LL_I2C_DisableIT_RX(I2C1);
-                    LL_I2C_GenerateStopCondition(I2C1);
-                    LL_I2C_DisableIT_RX(I2C1);
-                    *I2C1_Status.async_flag = I2C_FLAG_DONE;
-                    I2C1_Status.i2c1_status = I2C_IDLE;//0◊÷Ω⁄Ω” ’Ω· ¯¡À
-                }
-                else if(I2C1_Status.async_len == 1U)
-                {
-                    LL_I2C_AcknowledgeNextData(I2C1, LL_I2C_NACK);
-                    LL_I2C_GenerateStopCondition(I2C1);
-                }
-                else if(I2C1_Status.async_len == 2U)
-                {
-                    LL_I2C_AcknowledgeNextData(I2C1, LL_I2C_ACK);
-                }
-                else LL_I2C_AcknowledgeNextData(I2C1, LL_I2C_ACK);
-                break;
-            default:
-                break;
-        }
-    }
-    if(LL_I2C_IsActiveFlag_BTF(I2C1))//EV8_2
-    {
-        switch(I2C1_Status.i2c1_status)
-        {
-            case I2C_RX_POINTER_SENT://ºƒ¥Ê∆˜µÿ÷∑∑¢ÀÕÕÍ≥…
-                LL_I2C_DisableIT_TX(I2C1);
-                LL_I2C_EnableIT_RX(I2C1);
-                I2C1_Status.i2c1_status = I2C_RX;
-                LL_I2C_GenerateStartCondition(I2C1);//Repeat Start
-                break;
-            case I2C_RX:
-                if(I2C1_Status.async_len == 2U)// 2/3◊÷Ω⁄Ω” ’µ»µΩ¡ÀBTF
-                {
-                    LL_I2C_GenerateStopCondition(I2C1);
-                    *I2C1_Status.async_data++ = LL_I2C_ReceiveData8(I2C1);
-                    I2C1_Status.async_len--;
-                    *I2C1_Status.async_data++ = LL_I2C_ReceiveData8(I2C1);
-                    I2C1_Status.async_len--;
-                    LL_I2C_DisableIT_RX(I2C1);
-                    *I2C1_Status.async_flag = I2C_FLAG_DONE;
-                    I2C1_Status.i2c1_status = I2C_IDLE;// 2/3◊÷Ω⁄Ω” ’Ω· ¯¡À
-                }
-                else if(I2C1_Status.async_len == 3U)//3◊÷Ω⁄Ω” ’µ»µΩ¡ÀBTF
-                {
-                    LL_I2C_AcknowledgeNextData(I2C1, LL_I2C_NACK);
-                    *I2C1_Status.async_data++ = LL_I2C_ReceiveData8(I2C1);
-                    I2C1_Status.async_len--;
-                }
-                break;
-            default:
-                break;
-        }
-    }
-    if(LL_I2C_IsActiveFlag_RXNE(I2C1) && I2C1_Status.async_len > 0U && I2C1_Status.i2c1_status == I2C_RX)
-    { //EV7£¨Ω” ’«¯∑«ø’°£EV6∫Û£¨∆‰Ω´◊‘∂Ø≤˙…˙(≥˝¡Àlen==0µƒ«Èøˆ)
-        switch(I2C1_Status.async_len)
-        {
-            case 1U:
-                *I2C1_Status.async_data++ = LL_I2C_ReceiveData8(I2C1);//œ» ’ ˝æ›
-                I2C1_Status.async_len--;
-                LL_I2C_DisableIT_RX(I2C1);
-                *I2C1_Status.async_flag = I2C_FLAG_DONE;
-                I2C1_Status.i2c1_status = I2C_IDLE;//1◊÷Ω⁄Ω” ’Ω· ¯¡À
-                break;
-            case 2U:
-                LL_I2C_AcknowledgeNextData(I2C1, LL_I2C_NACK);//≤ªœÏ”¶œ¬“ª∏ˆ ˝æ›
-                LL_I2C_DisableIT_BUF(I2C1);//πÿRXNE÷–∂œ
-                break;
-            case 3U:
-                LL_I2C_DisableIT_BUF(I2C1);//πÿRXNE÷–∂œ
-                break;
-            default:
-                *I2C1_Status.async_data++ = LL_I2C_ReceiveData8(I2C1);//œ» ’ ˝æ›
-                I2C1_Status.async_len--;
-                if (LL_I2C_IsActiveFlag_BTF(I2C1) == 1)//»Áπ˚”–¡Ω∏ˆ◊÷Ω⁄¥˝Ω” ’
-                {
-                    *I2C1_Status.async_data++ = LL_I2C_ReceiveData8(I2C1);//‘Ÿ ’“ª∏ˆ
-                    I2C1_Status.async_len--;
-                }
-                break;            
-        }                            
-    }
-    if(LL_I2C_IsActiveFlag_TXE(I2C1))//∑¢ÀÕ«¯Œ™ø’(EV8)
-    {
-        switch(I2C1_Status.i2c1_status)
-        {
-            case I2C_TX_ACKED://(EV8_1)
-                LL_I2C_TransmitData8(I2C1,I2C1_Status.async_reg_addr);//∑¢ÀÕ¥”ª˙ºƒ¥Ê∆˜µÿ÷∑                
-                I2C1_Status.i2c1_status = I2C_TX_ING;
-                break;
-            case I2C_TX_ING:
-                if(I2C1_Status.async_len > 0)
-                {
-                    LL_I2C_TransmitData8(I2C1, *I2C1_Status.async_data--);
-                    I2C1_Status.async_len--;
-                }
-                else if(LL_I2C_IsActiveFlag_BTF(I2C1) == 0) LL_I2C_DisableIT_BUF(I2C1);//◊Ó∫Û“ªŒª ˝æ›“—◊∞»Î£¨πÿTXE÷–∂œ
-                else//◊Ó∫Û“ªŒª ˝æ›“—∑¢ÀÕ(EV8_2)( µº  «BTF“˝∑¢µƒ÷–∂œ◊ﬂµΩ’‚¿Ô)
-                {   
-                    LL_I2C_DisableIT_EVT(I2C1);
-                    LL_I2C_GenerateStopCondition(I2C1);
-                    *I2C1_Status.async_flag = I2C_FLAG_DONE;
-                    I2C1_Status.i2c1_status = I2C_IDLE;//∑¢ÀÕΩ· ¯¡À
-                }
-                break;
-            case I2C_RX_POINTER_ACKED:
-                LL_I2C_TransmitData8(I2C1,I2C1_Status.async_reg_addr);//∑¢ÀÕ¥”ª˙ºƒ¥Ê∆˜µÿ÷∑
-                I2C1_Status.i2c1_status = I2C_RX_POINTER_SENT;
-                break;
-            default:
-                break;
-        }
-    } 
-    
-    //¥ÌŒÛ¥¶¿Ì
-    if(LL_I2C_IsActiveFlag_AF(I2C1))//Œﬁ”¶¥
-    {
-        LL_I2C_ClearFlag_AF(I2C1);
-        //I2C_Diagnosis();
-        LL_I2C_DisableIT_BUF(I2C1);
-        LL_I2C_DisableIT_EVT(I2C1);   
-        LL_I2C_GenerateStopCondition(I2C1);
-        I2C1_Status.i2c1_status = I2C_IDLE;
-        *I2C1_Status.async_flag = I2C_FLAG_NORESPONSE;
-    }
-    if(LL_I2C_IsActiveFlag_BERR(I2C1))//◊‹œﬂ¥ÌŒÛ
-    {
-        LL_I2C_ClearFlag_BERR(I2C1);
-        I2C_Diagnosis();
-        LL_I2C_DisableIT_BUF(I2C1);
-        LL_I2C_DisableIT_EVT(I2C1);   
-        LL_I2C_GenerateStopCondition(I2C1);
-        I2C1_Status.i2c1_status = I2C_IDLE;
-        *I2C1_Status.async_flag = I2C_FLAG_BUSERROR;
-    }
-}
-#endif

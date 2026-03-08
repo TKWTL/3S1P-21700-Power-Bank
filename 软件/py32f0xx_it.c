@@ -56,6 +56,7 @@ void NMI_Handler(void)
   */
 void HardFault_Handler(void)
 {
+    NVIC_SystemReset();
   while (1)
   {
   }
@@ -75,7 +76,7 @@ void PendSV_Handler(void)
 {
 }
 
-uint32_t millis = 0;
+volatile uint32_t millis = 0;
 /**
   * @brief This function handles System tick timer.
   */

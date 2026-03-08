@@ -41,9 +41,9 @@ void BSP_PWMChannelConfig(void)
     LL_TIM_OC_Init(LED_PWM_TIM, LL_TIM_CHANNEL_CH1, &TIM_OC_Initstruct);
 }
 
-/*LED���ȿ��ƺ���
-/�����(1~255)����������ӳ�䵽LED_PWM_MIN��LED_PWM_MAX֮�䣬�Դﵽƽ�����Ӿ�Ч��
-/���Ϊ0ʱ�ر�PWM���
+/*LED亮度控制函数
+/将入参(1~255)按二次曲线映射到LED_PWM_MIN与LED_PWM_MAX之间，以达到平滑的视觉效果
+/入参为0时关闭PWM输出
 */
 void LED_PWM_Set(uint8_t indensity)
 {

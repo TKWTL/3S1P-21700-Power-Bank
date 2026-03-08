@@ -1,95 +1,103 @@
-/* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "sw6306.h"
 #include "debounce_key.h"
-/* Private define ------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-/* Private user code ---------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
 
-uint8_t sendbuff;
+uint8_t ledsta = 0;//LEDçŠ¶æ€å…¨å±€å˜é‡
+uint8_t forceoff = 0;//å…³é—­è¾“å‡ºç”¨å…¨å±€å˜é‡
+uint16_t cd_sleep = SLEEP_DELAY;//ç¡çœ å€’è®¡æ—¶
 
-uint8_t forceoff;//¹Ø±ÕÊä³öÓÃÈ«¾Ö±äÁ¿
-uint8_t main_looping;
-uint16_t cd_sleep;//Ë¯Ãßµ¹¼ÆÊ±
+extern uint8_t inttrig, keytrig;//bsp_exti.cæ–‡ä»¶å®šä¹‰çš„æŒ‡ç¤ºå˜é‡
 
-extern uint8_t inttrig,keytrig;
+
 THRD_DECLARE(thread_app)
 {
+    static uint16_t deattach_delay;
     THRD_BEGIN;
-    THRD_UNTIL(SW6306_Init());
+    THRD_SPAWN_NOARG(SW6306_ForceOff);
+    THRD_SPAWN_NOARG(SW6306_Init);
     while(1)
     {
-        main_looping = 1;//Ë¢ĞÂÑ­»·¿ªÊ¼£¬´ËÊ±²»¿ÉĞİÃß
+        uprintf("\n\nTime before sleep:%d0ms",cd_sleep);   
         
-        //millis¹ı´óÊ±¸´Î»Õû¸öÏµÍ³£¬±ÜÃâÒòÒç³ö²úÉú²»¿ÉÔ¤¼ÆµÄºó¹û£¬Ô¤¼ÆÒç³öÊ±¼ä£º497Ìì
-        if(millis > 4294960000U) NVIC_SystemReset();
+        THRD_SPAWN_NOARG(SW6306_ADCLoad);
+        THRD_SPAWN_NOARG(SW6306_PortStatusLoad);
+        THRD_DELAY(REFRESH_DELAY/4);
+        THRD_SPAWN_NOARG(SW6306_StatusLoad);
+        THRD_SPAWN_NOARG(SW6306_PowerLoad);
+        THRD_DELAY(REFRESH_DELAY/4);
+        THRD_SPAWN_NOARG(SW6306_CapacityLoad); 
+        THRD_DELAY(REFRESH_DELAY/4);
         
-        uprintf("\n\nTime before sleep:%d0ms",cd_sleep);        
-        
-        THRD_UNTIL(SW6306_ADCLoad());
-        THRD_UNTIL(SW6306_PortStatusLoad());
-        THRD_UNTIL(SW6306_StatusLoad());
-        THRD_UNTIL(SW6306_PowerLoad());
-        THRD_UNTIL(SW6306_CapacityLoad());
-        
-        if(SW6306_IsInitialized()==0)//¼ì²âSW6306ÊÇ·ñÒÑ³õÊ¼»¯¹ı
+        if(SW6306_IsInitialized() == 0)//æ£€æµ‹SW6306æ˜¯å¦å·²åˆå§‹åŒ–è¿‡
         {
-            uprintf("\n\nReInitializing SW6306..."); 
-            THRD_UNTIL(SW6306_Init());
-        }
+            cd_sleep = SLEEP_DELAY;
+            uprintf("\nReInitializing SW6306..."); 
+            THRD_SPAWN_NOARG(SW6306_ForceOff);
+            THRD_SPAWN_NOARG(SW6306_Init);
+        }            
         
-        //A¿Ú·Ç¿Õ×´Ì¬ÇÒ³äµçÖĞ»òBUSµçÁ÷¹ıĞ¡Âú×ãÆäÒ»Ê±³ÖĞø·¢ËÍA¿Ú°Î³öÊÂ¼ş£¬ÒÔ±£Ö¤µ¥¿ÚÊäÈëÊä³öÊ±µÄ¿ì³ä
-        if((SW6306_IsCharging()||(SW6306_ReadIBUS() <= IBUS_NOLOAD))&&(SW6306_IsPortA1ON()||SW6306_IsPortA2ON())) THRD_UNTIL(SW6306_ByteWrite(SW6306_CTRG_PORTEVT, 0x0A));
-        //·Ç³äµç×´Ì¬ÏÂµ±BUSÓëBATµçÁ÷ÖÁÉÙÆäÒ»×ã¹»´óÊ±³ÖĞø·¢ËÍ¶Ì°´¼üÊÂ¼ş£¬ÒÔ±£³ÖÏÔÊ¾³£ÁÁ
-        if((SW6306_ReadIBAT() > IBAT_NOLOAD || SW6306_ReadIBUS() > IBUS_NOLOAD) && !(SW6306_IsCharging())) THRD_UNTIL(SW6306_Click());
-        //³äµç×´Ì¬¡¢³äÂú×´Ì¬¡¢BUSÓëBATµçÁ÷×ã¹»´óÊ±Ë¢ĞÂË¯Ãßµ¹¼ÆÊ±
-        if((SW6306_ReadIBAT() > IBAT_NOLOAD)||(SW6306_ReadIBUS() > IBUS_NOLOAD)||SW6306_IsPortC1ON()||SW6306_IsPortC2ON()) cd_sleep = SLEEP_DELAY;
-        
+        //Aå£éç©ºçŠ¶æ€ä¸”BUSç”µæµè¿‡å°ä¸”LEDæœªå¼€å¯æ—¶å»¶æ—¶å‘é€Aå£æ‹”å‡ºäº‹ä»¶ï¼Œä»¥ä¿è¯å•å£è¾“å…¥è¾“å‡ºæ—¶çš„å¿«å……
+        if((SW6306_ReadIBUS()<IBUS_NOLOAD&&ledsta == 0)&&(SW6306_IsPortA1ON()||SW6306_IsPortA2ON())) deattach_delay++;
+        //Aå£éç©ºçŠ¶æ€ä¸”å……ç”µä¸­ã€Cå£éç©ºæ»¡è¶³å…¶ä¸€æ—¶ç«‹åˆ»å‘é€Aå£æ‹”å‡ºäº‹ä»¶ï¼Œä»¥ä¿è¯å•å£è¾“å…¥è¾“å‡ºæ—¶çš„å¿«å……
+        else if((SW6306_IsCharging()||SW6306_IsPortC1ON()||SW6306_IsPortC2ON())&&(SW6306_IsPortA1ON()||SW6306_IsPortA2ON())) deattach_delay = A_DEATTACH_DELAY;
+        else deattach_delay = 0;
+        //å……ç”µçŠ¶æ€ã€å……æ»¡çŠ¶æ€ã€BUSä¸BATç”µæµè¶³å¤Ÿå¤§æ—¶åˆ·æ–°ç¡çœ å€’è®¡æ—¶
+        if((SW6306_ReadIBAT()>IBAT_NOLOAD)||(SW6306_ReadIBUS()>IBUS_NOLOAD)||SW6306_IsPortC1ON()||SW6306_IsPortC2ON()||SW6306_IsPortA1ON()||SW6306_IsPortA2ON()) cd_sleep = SLEEP_DELAY;
+
+        //å……æ”¾ç”µçŠ¶æ€æ˜¾ç¤º
         if(SW6306_IsCharging()) uprintf("\nCharging.");
         if(SW6306_IsDischarging()) uprintf("\nDischarging.");
         if(SW6306_IsFullCharged()) uprintf("\nFull Charged.");
-        
+        else{
+            if(SW6306_IsErrorinCharging()) uprintf("\nError Occured in Charging.");
+            if(SW6306_IsErrorinDischarging()) uprintf("\nError Occured in Discharging.");
+        }
+            
+        //ç«¯å£çŠ¶æ€æ˜¾ç¤º
         if(SW6306_IsPortC1ON()) uprintf("\nPort C1 Path Enabled.");
         if(SW6306_IsPortC2ON()) uprintf("\nPort C2 Path Enabled.");
         if(SW6306_IsPortA1ON()) uprintf("\nPort A1 Path Enabled.");
         if(SW6306_IsPortA2ON()) uprintf("\nPort A2 Path Enabled.");
-        
+        uprintf("\nProtocol: %s", SW6306_ReadProtocol());
+        //ç”µæ°”æ•°æ®æ˜¾ç¤º
         uprintf("\nCapacity:%d%%",SW6306_ReadCapacity());
         uprintf("\nPortBus Voltage:%dmV",SW6306_ReadVBUS());     
-        uprintf("\nPortBus Current:%dmA",SW6306_ReadIBUS());
+        uprintf("\tPortBus Current:%dmA",SW6306_ReadIBUS());
         uprintf("\nBattery Voltage:%dmV",SW6306_ReadVBAT());
-        uprintf("\nBattery Current:%dmA",SW6306_ReadIBAT());
-        uprintf("\nNTC Temprature:%d¡ãC",SW6306_ReadTNTC());
-        uprintf("\nChip Temprature:%.2f¡ãC\n",SW6306_ReadTCHIP());
+        uprintf("\tBattery Current:%dmA",SW6306_ReadIBAT());
+        uprintf("\nNTC Temprature:%d'C",SW6306_ReadTNTC());
+        uprintf("\t\tChip Temprature:%.2f'C\n",SW6306_ReadTCHIP());
         
-        if(forceoff)
+        //Aå£æ–­å¼€æ“ä½œçš„æ‰§è¡Œ
+        if(deattach_delay >= A_DEATTACH_DELAY)
         {
-            forceoff = 0;
-            THRD_UNTIL(SW6306_ForceOff());
-        }
-        if(inttrig==2)
-        {
-            THRD_UNTIL(SW6306_StatusLoad());
-            inttrig = 0;
-        }
-        if(keytrig==2)
-        {
-            THRD_UNTIL(SW6306_Click());
-            keytrig = 0;
+            THRD_SPAWN_NOARG(SW6306_PortA1Remove);
+            THRD_SPAWN_NOARG(SW6306_PortA2Remove);
+            deattach_delay = 0;
+            //è¿™ä¸€æ®µæ“ä½œå¥½åƒæ²¡æ³•åªæ–­å¼€éœ€è¦çš„ç«¯å£ï¼Œå¯¼è‡´å°†Cå£ä¹Ÿä¸€åŒæ–­å¼€ï¼Œå¦‚æœæ‰“å¼€äº†LEDï¼Œå°±ä¼šå¯¼è‡´æ— å°½çš„é‡è¿
         }
         
-        THRD_DELAY(2);//µÈ´ı´òÓ¡Íê³É
-        main_looping = 0;//Ñ­»·¸æÒ»¶ÎÂä£¬¿ÉÒÔ½øStopÁË
-        THRD_DELAY(REFRESH_DELAY-3);
+        //LEDè€—ç”µé‡è®¡ç®—
+        else if(ledsta)
+        {
+            cd_sleep = SLEEP_DELAY;//åˆ·æ–°ç¡çœ å€’è®¡æ—¶        
+            //æ²¡æœ‰å£æ‰“å¼€æ—¶è§¦å‘å£æ’å…¥ä»¥æŒç»­æ˜¾ç¤ºç”µé‡å’Œä½¿èƒ½ç”µé‡è®¡ç®—  
+            if(!(SW6306_IsPortC1ON()||SW6306_IsPortC2ON()||SW6306_IsPortA1ON()||SW6306_IsPortA2ON()))
+            {
+                THRD_DELAY(150);//å»¶è¿Ÿä»¥ä½¿Cå£å…ˆæ‰“å¼€
+                THRD_SPAWN_NOARG(SW6306_PortStatusLoad);
+                if(!(SW6306_IsPortC1ON()||SW6306_IsPortC2ON()||SW6306_IsPortA1ON()||SW6306_IsPortA2ON())) THRD_SPAWN_NOARG(SW6306_PortA1Insert);
+            }
+        }
+        
+        THRD_DELAY(REFRESH_DELAY/4);
     }
     THRD_END;
 }
 
 THRD_DECLARE(thread_echo)
 {
-    char buf[32];
+    uint8_t buf[32];
     uint8_t num;
     THRD_BEGIN;
     while(1)
@@ -102,10 +110,13 @@ THRD_DECLARE(thread_echo)
     THRD_END;
 }
 
+uint16_t wdt_cnt = 0;
 THRD_DECLARE(thread_key)
 {
-    static uint8_t step,cnt;//Ë«»÷¼ÆÊ±ÓÃ±äÁ¿
-    static uint8_t holding,ledsta,leddir,ledind;//°´¼ü°´×¡¡¢LEDÊÇ·ñ´ò¿ª¡¢µ÷¹â·½ÏòÓëLEDÁÁ¶È
+    static uint8_t step,cnt;//åŒå‡»è®¡æ—¶ç”¨å˜é‡
+    static uint8_t holding;//æŒ‰é”®æŒ‰ä½
+    static uint8_t leddir = 1;//è°ƒå…‰æ–¹å‘
+    static uint8_t ledind = 127;//LEDäº®åº¦
     static uint16_t cd_reset;
     THRD_BEGIN;
     while(1)
@@ -113,79 +124,94 @@ THRD_DECLARE(thread_key)
         Key_DebounceService_10ms();
         Key_Scand();
         
-        if(cnt) cnt--;//¼ÆÊ±Æ÷×Ô¼õÖ±µ½0
+        if(cnt) cnt--;//è®¡æ—¶å™¨è‡ªå‡ç›´åˆ°0
         else step = 0;
         
-        switch(Key_EdgeDetect(KeyIndex_KEY))
+        KeyEdge_t edge = Key_EdgeDetect(KeyIndex_KEY);
+
+        if(edge == KeyEdge_Rising)
         {
-            case KeyEdge_Rising:
-                if(step == 0)
+            if(step == 0)
+            {
+                cnt = TMAX_DOUBLECLICK; //é¦–æ¬¡æŒ‰ä¸‹
+                step = 1;
+                THRD_SPAWN_NOARG(SW6306_Click);
+            }
+            else if(step == 1)
+            {
+                cnt = TMAX_DOUBLECLICK; //ç¬¬äºŒæ¬¡æŒ‰ä¸‹
+                step = 2;
+            }
+            else
+            {
+                step = 0;
+            }
+        }
+        else if(edge == KeyEdge_Falling)
+        {
+            if(step == 1)
+            {
+                cnt = TMAX_DOUBLECLICK; //é¦–æ¬¡æ¾å¼€
+            }
+            else if(step == 2) //ç¬¬äºŒæ¬¡æ¾å¼€ï¼Œè§¦å‘åŒå‡»
+            {
+                cnt = 0;
+                if(ledsta)
                 {
-                    cnt = TMAX_DOUBLECLICK;//Ê×´Î°´ÏÂ
-                    step = 1;
+                    uprintf("\n\nWLED Off!\n");
+                    ledsta = 0;
+                    LED_PWM_Set(0);
+                    THRD_DELAY(1);
+                    LL_GPIO_ResetOutputPin(LED_PORT,LED_PIN);
                 }
-                else if(step == 1)
+                else
                 {
-                    cnt = TMAX_DOUBLECLICK;//µÚ¶ş´Î°´ÏÂ
-                    step = 2;
+                    uprintf("\n\nWLED On!\n");
+                    ledsta = 1;
+                    LL_GPIO_SetOutputPin(LED_PORT, LED_PIN);
+                    THRD_DELAY(1);
+                    LED_PWM_Set(ledind);
                 }
-                else step = 0;
-                break;
-            case KeyEdge_Falling:
-                if(step == 1) cnt = TMAX_DOUBLECLICK;//Ê×´ÎËÉ¿ª
-                else if(step == 2)//µÚ¶ş´ÎËÉ¿ª£¬´¥·¢Ë«»÷
-                {
-                    cnt = 0;
-                    if(ledsta)
-                    {
-                        uprintf("\n\nWLED Off!\n");
-                        ledsta = 0;
-                        LED_PWM_Set(0);
-                        LL_GPIO_ResetOutputPin(LED_PORT,LED_PIN);
-                    }
-                    else
-                    {
-                        uprintf("\n\nWLED On!\n");
-                        ledsta = 1;
-                        LL_GPIO_SetOutputPin(LED_PORT,LED_PIN);
-                        LED_PWM_Set(ledind+1);
-                    }
-                }
-                else step = 0;
-                holding = 0;//ËÉ¿ªÊ±½â³ı³¤°´
-                break;
-            case KeyEdge_Holding://´¥·¢³¤°´
-                holding = 1;
-                if(ledsta)//LED´ò¿ªÊ±³¤°´µ÷¹â£¬Ã¿´Î´¥·¢³¤°´Ê±¸Ä±äµ÷¹â·½Ïò
-                {
-                    if(leddir) leddir = 0;
-                    else leddir = 1;
-                }
-                else forceoff = 1;//LED¹Ø±ÕÊ±³¤°´¹Ø±ÕÊä³ö
-                break;
-            case KeyEdge_Error:
-            case KeyEdge_Null:
-            default: break;
+            }
+            else
+            {
+                step = 0;
+            }
+            holding = 0; //æ¾å¼€æ—¶è§£é™¤é•¿æŒ‰
+        }
+        else if(edge == KeyEdge_Holding) //è§¦å‘é•¿æŒ‰
+        {
+            holding = 1;
+            if(ledsta) //LEDæ‰“å¼€æ—¶é•¿æŒ‰è°ƒå…‰ï¼Œæ¯æ¬¡è§¦å‘é•¿æŒ‰æ—¶æ”¹å˜è°ƒå…‰æ–¹å‘
+            {
+                if(leddir) leddir = 0;
+                else       leddir = 1;
+            }
+            else
+            {
+                forceoff = 1; //LEDå…³é—­æ—¶é•¿æŒ‰å…³é—­è¾“å‡º
+            }
         }
         
-        if(ledsta && (SW6306_IsBatteryDepleted()||SW6306_IsOverHeated()))//µÍµçÑ¹Óë¹ıÎÂ¹Ø±ÕWLED
+        if(ledsta && (SW6306_IsBatteryDepleted()||SW6306_IsOverHeated()))//ä½ç”µå‹ä¸è¿‡æ¸©å…³é—­WLED
         {
-            uprintf("\n\nBattery Depleted!Unable to Enable WLED\n\n");
+            uprintf("\n\nSomehing is Wrong!Unable to Enable WLED!\n\n");
             ledsta = 0;
             LED_PWM_Set(0);
+            THRD_DELAY(1);
             LL_GPIO_ResetOutputPin(LED_PORT,LED_PIN);
         }
         
         if(ledsta && holding)
         {
-            if(leddir && (ledind < 254)) ledind++;//Ôö¼ÓÁÁ¶È
-            else if(!leddir && ledind) ledind--;//¼õĞ¡ÁÁ¶È
-            LED_PWM_Set(ledind+1);
+            if(leddir && ledind < 254) ledind++;//å¢åŠ äº®åº¦
+            else if(!leddir && ledind > 1) ledind--;//å‡å°äº®åº¦
+            LED_PWM_Set(ledind);
         }
         else if(holding)
         {
-            cd_reset++;
-            if(cd_reset > T_ULTRA_LONGPRESS)//´¥·¢ÁË³¬³¤°´
+            cd_reset+=2;
+            if(cd_reset > T_ULTRA_LONGPRESS)//è§¦å‘äº†è¶…é•¿æŒ‰
             {
                 uprintf("\n\nResetting......\n\n");
                 LL_mDelay(100);
@@ -194,7 +220,17 @@ THRD_DECLARE(thread_key)
         }
         else cd_reset = 0;
         
-        if(cd_sleep) cd_sleep--;//Ë¯Ãß¼ÆÊ±Æ÷×Ô¼õ
+        if(cd_sleep) cd_sleep--;//ç¡çœ è®¡æ—¶å™¨è‡ªå‡
+        
+        //I2Cçœ‹é—¨ç‹—
+        wdt_cnt++;
+        if(i2c_mutex.count) wdt_cnt = 0;
+        else if(wdt_cnt > 100 && GetI2CStatus() == I2C_IDLE){
+            uprintf("\n\nI2C WatchDog Triggerd!!!\n\n");
+            I2C_Diagnosis();
+            PT_SEM_SIGNAL(pt, &i2c_mutex);
+        }
+        
         THRD_DELAY(1);
     }
     THRD_END;
@@ -205,62 +241,79 @@ THRD_DECLARE(thread_trig)
     THRD_BEGIN;
     while(1)
     {
-        if(inttrig==1)
+        if(inttrig)
         {
             uprintf("\n\nIRQ event occured!\n");
-            inttrig = 2;
+            //THRD_SPAWN_NOARG(SW6306_StatusLoad);
+            cd_sleep = SLEEP_DELAY;//åˆ·æ–°ç¡çœ å€’è®¡æ—¶ 
+            inttrig = 0;
         }
-        if(keytrig==1)
+        if(keytrig)
         {
-            //uprintf("\nKEY Pressed!\n");
-            keytrig = 2;
+            uprintf("\nKEY Pressed!\n");
+            cd_sleep = SLEEP_DELAY;//åˆ·æ–°ç¡çœ å€’è®¡æ—¶ 
+            keytrig = 0;
+        }
+        if(forceoff)
+        {
+            forceoff = 0;
+            THRD_SPAWN_NOARG(SW6306_ForceOff);
         }
         THRD_YIELD;
     }
     THRD_END;
 }
 
-struct pt pt1,pt2,pt3,pt4;//ProtoThread¿âÔËĞĞ±äÁ¿
+THRD_DECLARE(thread_sleep){                                                     //ä½åŠŸè€—ä¼‘çœ çº¿ç¨‹ï¼Œæ”¾åœ¨çº¿ç¨‹å‡½æ•°æ³¨å†Œè¡¨çš„æœ«å°¾
+    THRD_BEGIN;
+    while(1)
+    {   //è¿›å…¥æ·±åº¦ç¡çœ å¿…é¡»æ»¡è¶³çš„æ¡ä»¶ï¼š
+        //æŒ‰é”®æ¾å¼€ã€ç¡çœ å€’è®¡æ—¶å½’é›¶ã€I2Cæ²¡æœ‰æ­£åœ¨è¯»å†™çš„ä»»åŠ¡ä¸”æœªè¿›è¡Œä¸²å£æ‰“å°
+        //æ»¡è¶³æ¡ä»¶æ—¶å…³é—­æ‰€æœ‰å¤–è®¾ï¼š
+        //æ‰“å¼€SW6306ä½åŠŸè€—æ¨¡å¼ï¼Œå…³é—­Systickå®šæ—¶å™¨ä¸­æ–­ï¼Œå…è®¸DeepSleep
+        if((USART_IsBusy()==0)&&(cd_sleep==0)&&(LL_GPIO_IsInputPinSet(KEY_PORT, KEY_PIN)))
+        {
+            while(SW6306_LPSet(pt)==0);//whileä»£æ›¿THRD_DELAY
+            LL_mDelay(1);//å»¶æ—¶ç­‰å¾…æ“ä½œå®Œæˆ
+            LL_SYSTICK_DisableIT();
+            LL_LPM_EnableDeepSleep();
+            __WFI();
+            //ç¡çœ /å”¤é†’åˆ†ç•Œçº¿
+            LL_SYSTICK_EnableIT();
+            LL_LPM_EnableSleep();
+            while(SW6306_Unlock(pt)==0);
+        }
+        else __WFI();//å¦åˆ™æµ…åº¦ç¡çœ 
+        THRD_YIELD;
+    }
+    THRD_END;
+}
+
+
+char (*threads[])(struct pt *pt) = {                                            //çº¿ç¨‹å‡½æ•°æŒ‡é’ˆæ•°ç»„ï¼Œåœ¨è¿™é‡Œæ³¨å†Œè¦è¿è¡Œçš„çº¿ç¨‹å‡½æ•°åå­—
+    thread_echo,//å°†ä¸²å£æ”¶åˆ°çš„æ•°æ®ç›´æ¥å‘å›
+    thread_key,//æŒ‰é”®ã€è°ƒå…‰ä¸ç³»ç»ŸçŠ¶æ€
+    thread_trig,//EXTIå“åº”
+    thread_app,//SW6306ç›¸å…³æ“ä½œ
+    thread_sleep
+};
+uint8_t thread_num = sizeof(threads)/sizeof(char(*)(struct pt *pt));            //çº¿ç¨‹æ•°ç›®æŒ‡ç¤º
 
 int main(void)
 {
     SysInit();
     Key_Init();
-    cd_sleep = SLEEP_DELAY;//Ë¢ĞÂË¯Ãßµ¹¼ÆÊ±
-    LL_mDelay(50);//µÈ´ıSW6306ÉÏµçÎÈ¶¨
+    LL_mDelay(50);//ç­‰å¾…SW6306ä¸Šç”µç¨³å®š
     
     uprintf("\n\n3S1P 21700 Power Bank");
     uprintf("\nPowered by SW6306 & PY32F002A");
-    uprintf("\nTKWTL 2024/08/10\n");
+    uprintf("\nTKWTL 2026/03/10\n");
     
-    PT_INIT(&pt1);
-    PT_INIT(&pt2);
-    PT_INIT(&pt3);
-    PT_INIT(&pt4);
+    OS_INIT(threads);
     
-    while(1)//Ö÷Ñ­»·
+    while(1)//ä¸»å¾ªç¯
     {
-        thread_app(&pt1);//SW6306Ïà¹Ø²Ù×÷
-        thread_echo(&pt2);//½«´®¿ÚÊÕµ½µÄÊı¾İÖ±½Ó·¢»Ø
-        thread_key(&pt3);//°´¼ü¡¢µ÷¹âÓëÏµÍ³×´Ì¬
-        thread_trig(&pt4);//EXTIÏìÓ¦
-        
-        //½øÈëÉî¶ÈË¯Ãß±ØĞëÂú×ãµÄÌõ¼ş£º
-        //°´¼üËÉ¿ª¡¢Ë¯Ãßµ¹¼ÆÊ±¹éÁã¡¢I2CÃ»ÓĞÕıÔÚ¶ÁĞ´µÄÈÎÎñÇÒÎ´½øĞĞ´®¿Ú´òÓ¡
-        //Âú×ãÌõ¼şÊ±¹Ø±ÕËùÓĞÍâÉè£º
-        //´ò¿ªSW6306µÍ¹¦ºÄÄ£Ê½£¬¹Ø±ÕSystick¶¨Ê±Æ÷ÖĞ¶Ï£¬ÔÊĞíDeepSleep
-        if((main_looping==0)&&(cd_sleep==0)&&(LL_GPIO_IsInputPinSet(KEY_PORT, KEY_PIN)))
-        {
-            while(SW6306_LPSet()==0);//while´úÌæTHRD_DELAY
-            LL_mDelay(1);//ÑÓÊ±µÈ´ı²Ù×÷Íê³É
-            LL_SYSTICK_DisableIT();
-            LL_LPM_EnableDeepSleep();
-            __WFI();
-            LL_SYSTICK_EnableIT();
-            LL_LPM_EnableSleep();
-            while(SW6306_Unlock()==0);
-        }
-        else __WFI();//·ñÔòÇ³¶ÈË¯Ãß
+        OS_RUN(threads);
     }
 }
 

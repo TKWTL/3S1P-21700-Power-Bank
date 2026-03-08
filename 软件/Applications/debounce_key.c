@@ -4,7 +4,7 @@
     #define DEBOUNCE_TIME_10MS              2
 #endif
 
-#define DEFAULT_LONGPRESS_TIME_10MS     120
+#define DEFAULT_LONGPRESS_TIME_10MS     150
 
 /*******************************用户按键配置区*********************************/
 
@@ -13,7 +13,7 @@ static uint8_t KEY_GetIO(void);
 const KeyInfo_t KeyInfo_Array[KeyIndex_Max] = {
     /* {LongPressTime, ZeroIsPress, GetIOFunc(Must not NULL)} 
     LongPressTime：为0时使用默认长按时间*/
-    {150, 1, KEY_GetIO},
+    {140, 1, KEY_GetIO},
 };
 /*******************************用户配置区结束*********************************/
 

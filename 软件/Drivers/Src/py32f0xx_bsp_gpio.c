@@ -6,7 +6,7 @@ void BSP_GPIO_Config()
 
     LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA | LL_IOP_GRP1_PERIPH_GPIOB | LL_IOP_GRP1_PERIPH_GPIOF);
         
-    //PF4ÅäÖÃÎªÄ£ÄâÊäÈë
+    //PF4é…ç½®ä¸ºæ¨¡æ‹Ÿè¾“å…¥
     GPIO_InitStruct.Pin = LL_GPIO_PIN_4;
     GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG ;
     GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_HIGH;
@@ -15,8 +15,8 @@ void BSP_GPIO_Config()
     GPIO_InitStruct.Alternate = LL_GPIO_AF_0;
     LL_GPIO_Init(GPIOF, &GPIO_InitStruct);
     
-    //ÓÃ»§ÅäÖÃ¿ÚÏß
-    //ÊäÈëÇø
+    //ç”¨æˆ·é…ç½®å£çº¿
+    //è¾“å…¥åŒº
     GPIO_InitStruct.Pin = INT_PIN;
     GPIO_InitStruct.Mode = LL_GPIO_MODE_INPUT;
     GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_HIGH;
@@ -33,7 +33,7 @@ void BSP_GPIO_Config()
     GPIO_InitStruct.Alternate = LL_GPIO_AF_0;
     LL_GPIO_Init(KEY_PORT, &GPIO_InitStruct);
     
-    //Êä³öÇø
+    //è¾“å‡ºåŒº
     LED_INITSTA(LED_PORT,LED_PIN);
     GPIO_InitStruct.Pin = LED_PIN;
     GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;

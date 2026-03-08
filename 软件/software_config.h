@@ -1,20 +1,21 @@
 #ifndef __OS_CONFIG_H__
 #define __OS_CONFIG_H__
 
-#define BAUD_RATE           115200                                              //´®¿ÚÍ¨ÐÅ²¨ÌØÂÊ
+#define BAUD_RATE           115200                                              //ä¸²å£é€šä¿¡æ³¢ç‰¹çŽ‡
 
-#define T_SYSTICK           10                                                  //SystickÒç³öÊ±¼ä£¨µ¥Î»£ºms£©
+#define T_SYSTICK           10                                                  //Systickæº¢å‡ºæ—¶é—´ï¼ˆå•ä½ï¼šmsï¼‰
 
-#define IBUS_NOLOAD         50                                                  //BUS¿ÕÔØÅÐ¶¨µçÁ÷£¨µ¥Î»£ºmA£©
-#define IBAT_NOLOAD         50                                                  //BAT¿ÕÔØÅÐ¶¨µçÁ÷£¨µ¥Î»£ºmA£©
+#define IBUS_NOLOAD         50                                                  //BUSç©ºè½½åˆ¤å®šç”µæµï¼ˆå•ä½ï¼šmAï¼‰
+#define IBAT_NOLOAD         50                                                  //BATç©ºè½½åˆ¤å®šç”µæµï¼ˆå•ä½ï¼šmAï¼‰
 
-#define TMAX_DOUBLECLICK    10                                                  //Ë«»÷³¬Ê±Ê±¼ä£¨µ¥Î»£º10ms£©
-#define REFRESH_DELAY       100                                                 //Ë¢ÐÂÊ±¼ä£¨µ¥Î»£º10ms£©
-#define SLEEP_DELAY         600                                                 //ÎÞÊÂ¼þºóÐÝÃßÊ±¼ä£¨µ¥Î»£º10ms£©
-#define T_ULTRA_LONGPRESS   1000                                                //³¬³¤°´ÏìÓ¦Ê±¼ä£¨µ¥Î»£º10ms£©
+#define TMAX_DOUBLECLICK    40                                                  //åŒå‡»è¶…æ—¶æ—¶é—´ï¼ˆå•ä½ï¼š10msï¼‰
+#define REFRESH_DELAY       100                                                 //åˆ·æ–°æ—¶é—´ï¼ˆå•ä½ï¼š10msï¼‰
+#define A_DEATTACH_DELAY    4                                                   //æ»¡è¶³æ¡ä»¶æ—¶Aå£æ–­è”ç­‰å¾…æ¬¡æ•°
+#define SLEEP_DELAY         600                                                 //æ— äº‹ä»¶åŽä¼‘çœ æ—¶é—´ï¼ˆå•ä½ï¼š10msï¼‰
+#define T_ULTRA_LONGPRESS   1500                                                //è¶…é•¿æŒ‰å“åº”æ—¶é—´ï¼ˆå•ä½ï¼š10msï¼‰
 
-#define LED_PWM_TOP         1024                                                //LED PWM¼ÆÊý×î´óÖµ/ÖÜÆÚ
-#define LED_PWM_MIN         4                                                   //LEDÆô¶¯Ê±µÄ×îÐ¡PWMÖµ£¬¾ö¶¨ÁË×îÐ¡ÁÁ¶È
-#define LED_PWM_MAX         768                                                 //LEDÆô¶¯Ê±µÄ×î´óPWMÖµ£¬¾ö¶¨ÁË×î´óÁÁ¶È
+#define LED_PWM_TOP         1024                                                //LED PWMè®¡æ•°æœ€å¤§å€¼/å‘¨æœŸ
+#define LED_PWM_MIN         4                                                   //LEDå¯åŠ¨æ—¶çš„æœ€å°PWMå€¼ï¼Œå†³å®šäº†æœ€å°äº®åº¦
+#define LED_PWM_MAX         512                                                 //LEDå¯åŠ¨æ—¶çš„æœ€å¤§PWMå€¼ï¼Œå†³å®šäº†æœ€å¤§äº®åº¦
 
 #endif

@@ -1,5 +1,5 @@
-#ifndef __PY32F0XX_BSP_I2C_H__
-#define __PY32F0XX_BSP_I2C_H__
+#ifndef __PY32F0XX_BSP_PWR_H__
+#define __PY32F0XX_BSP_PWR_H__
 
 #ifdef __cplusplus
 extern "C" {

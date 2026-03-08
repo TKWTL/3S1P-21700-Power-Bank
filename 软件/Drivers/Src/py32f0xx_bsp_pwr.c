@@ -2,10 +2,10 @@
 
 void BSP_PWR_Config()
 {
-    LL_LPM_DisableEventOnPend();//仅已使能事件和中断才能唤醒处理器
+    LL_LPM_DisableEventOnPend();//浠呭凡浣胯兘浜嬩欢鍜屼腑鏂墠鑳藉敜閱掑鐞嗗櫒
     LL_PWR_SetRegulVoltageScaling(LL_PWR_REGU_VOLTAGE_SCALE2);
-    LL_PWR_EnableLowPowerRunMode();//使用LPR为Stop模式下的芯片供电
-    LL_LPM_DisableSleepOnExit();//禁止中断服务程序退出即休眠
-    LL_LPM_EnableSleep();//WFI后仅CPU停摆
+    LL_PWR_EnableLowPowerRunMode();//浣跨敤LPR涓篠top妯″紡涓嬬殑鑺墖渚涚數
+    LL_LPM_DisableSleepOnExit();//绂佹涓柇鏈嶅姟绋嬪簭閫�鍑哄嵆浼戠湢
+    LL_LPM_EnableSleep();//WFI鍚庝粎CPU鍋滄憜
 }
     

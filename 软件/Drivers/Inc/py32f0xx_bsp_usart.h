@@ -11,22 +11,22 @@ extern "C" {
 #include <stdio.h>
 #include <stdarg.h>
 
-/*****************************�û���������ʼ***********************************/
-//����ú꣬ʹ�ÿ����ж�ģʽ���첽����
+/*****************************用户配置区开始***********************************/
+//定义该宏，使该库在中断模式下异步运行
 #define USART_ENABLEIT
- //���崮���ж��շ���������С   
+ //定义串口中断收发缓冲区大小   
 #define USART_TX_BUFFER_SIZE 256
 #define USART_RX_BUFFER_SIZE 32
     
-//ѡ���Ӧ��USART����ʱ��
+//选择对应的USART与其时钟
 #define DEBUG_USART                             USART1
 #define DEBUG_USART_CLK_ENABLE()                LL_APB1_GRP2_EnableClock(LL_APB1_GRP2_PERIPH_USART1)
-//ѡ���Ӧ��USART���ж��������жϷ�������
+//选择对应的USART的中断向量及中断服务函数名
 #define DEBUG_USART_IRQHandler                  USART1_IRQHandler
 #define DEBUG_USART_IRQ                         USART1_IRQn
 
-/*******************************�û�����������*********************************/
-//Ĭ��USART����:RXĬ��PA3��TXĬ��PA2
+/*******************************用户配置区结束*********************************/
+//默认USART引脚:RX默认PA3，TX默认PA2
 #ifndef DEBUG_USART_RX_GPIO_PORT
     #define DEBUG_USART_RX_GPIO_PORT                GPIOA
 #endif
@@ -51,8 +51,9 @@ extern "C" {
 #ifndef DEBUG_USART_TX_AF
     #define DEBUG_USART_TX_AF                       LL_GPIO_AF_1
 #endif
-//����������
+//函数声明区
 void            BSP_USART_Config(uint32_t baudRate);
+uint8_t         USART_IsBusy(void);                                             //USART忙查询，为0时USART处于空闲状态
 
 void            BSP_UART_TxChar(char ch);
 void            BSP_UART_TxHex8(uint8_t hex);

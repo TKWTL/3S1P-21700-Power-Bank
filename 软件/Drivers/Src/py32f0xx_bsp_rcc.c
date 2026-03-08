@@ -29,6 +29,7 @@ void BSP_SystemClockConfig(void)
     /* Update system clock global variable SystemCoreClock (can also be updated by calling SystemCoreClockUpdate function) */
     LL_SetSystemCoreClock(CoreClk);
     
+    //关闭不必要的时钟
     LL_RCC_LSE_Disable();
     LL_RCC_HSE_Disable();
     LL_RCC_LSI_Disable();

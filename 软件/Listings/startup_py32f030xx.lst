@@ -353,13 +353,13 @@ ARM Macro Assembler    Page 6
   248 00000014                 END
               00000000 
               00000000 
-Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0+ --depend=.\o
-bjects\startup_py32f030xx.d -o.\objects\startup_py32f030xx.o -I.\RTE\_PY32F030x
-6_Project -IC:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\I
-nclude -IC:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\Device\
-Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 533
-" --predefine="_RTE_ SETA 1" --predefine="_RTE_ SETA 1" --list=.\listings\start
-up_py32f030xx.lst startup_py32f030xx.s
+Command Line: --debug --xref --diag_suppress=9931,A1950W --cpu=Cortex-M0+ --dep
+end=.\objects\startup_py32f030xx.d -o.\objects\startup_py32f030xx.o -I.\RTE\_PY
+32F030x6_Project -IC:\Users\TKWTL\AppData\Local\Arm\Packs\ARM\CMSIS\6.1.0\CMSIS
+\Core\Include -IC:\Users\TKWTL\AppData\Local\Arm\Packs\Puya\PY32F0xx_DFP\1.1.0\
+Device\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION S
+ETA 543" --predefine="_RTE_ SETA 1" --list=.\listings\startup_py32f030xx.lst st
+artup_py32f030xx.s
 
 
 

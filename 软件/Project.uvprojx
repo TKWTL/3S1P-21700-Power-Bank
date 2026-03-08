@@ -186,6 +186,7 @@
             <RvdsVP>0</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -391,7 +392,7 @@
             <File>
               <FileName>system_py32f0xx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Src\system_py32f0xx.c</FilePath>
+              <FilePath>.\Drivers\Src\system_py32f0xx.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -417,21 +418,6 @@
               <FileName>debounce_key.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Applications\debounce_key.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Doc</GroupName>
-          <Files>
-            <File>
-              <FileName>readme.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\readme.txt</FilePath>
-            </File>
-            <File>
-              <FileName>exp.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\exp.txt</FilePath>
             </File>
           </Files>
         </Group>
@@ -623,8 +609,7 @@
       <TargetName>PY32F030x6_Project</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pArmCC>6150000::V6.15::ARMCLANG</pArmCC>
-      <pCCUsed>6150000::V6.15::ARMCLANG</pCCUsed>
+      <pCCUsed>6240000::V6.24::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -800,6 +785,7 @@
             <RvdsVP>0</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -927,7 +913,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>2</Optim>
+            <Optim>6</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -1005,7 +991,7 @@
             <File>
               <FileName>system_py32f0xx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Src\system_py32f0xx.c</FilePath>
+              <FilePath>.\Drivers\Src\system_py32f0xx.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1031,21 +1017,6 @@
               <FileName>debounce_key.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Applications\debounce_key.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Doc</GroupName>
-          <Files>
-            <File>
-              <FileName>readme.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\readme.txt</FilePath>
-            </File>
-            <File>
-              <FileName>exp.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\exp.txt</FilePath>
             </File>
           </Files>
         </Group>
@@ -1413,6 +1384,7 @@
             <RvdsVP>0</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -1618,7 +1590,7 @@
             <File>
               <FileName>system_py32f0xx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Src\system_py32f0xx.c</FilePath>
+              <FilePath>.\Drivers\Src\system_py32f0xx.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1644,21 +1616,6 @@
               <FileName>debounce_key.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Applications\debounce_key.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Doc</GroupName>
-          <Files>
-            <File>
-              <FileName>readme.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\readme.txt</FilePath>
-            </File>
-            <File>
-              <FileName>exp.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\exp.txt</FilePath>
             </File>
           </Files>
         </Group>
@@ -2026,6 +1983,7 @@
             <RvdsVP>0</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -2231,7 +2189,7 @@
             <File>
               <FileName>system_py32f0xx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Src\system_py32f0xx.c</FilePath>
+              <FilePath>.\Drivers\Src\system_py32f0xx.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2257,21 +2215,6 @@
               <FileName>debounce_key.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Applications\debounce_key.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Doc</GroupName>
-          <Files>
-            <File>
-              <FileName>readme.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\readme.txt</FilePath>
-            </File>
-            <File>
-              <FileName>exp.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\exp.txt</FilePath>
             </File>
           </Files>
         </Group>
@@ -2395,8 +2338,8 @@
   <RTE>
     <apis/>
     <components>
-      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.6.0" condition="ARMv6_7_8-M Device">
-        <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
+      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="6.1.0" condition="ARMv6_7_8-M Device" ymlID="CMSIS:CORE">
+        <package name="CMSIS" schemaVersion="1.7.36" url="https://www.keil.com/pack/" vendor="ARM" version="6.1.0"/>
         <targetInfos>
           <targetInfo name="PY32F030x4_Project"/>
           <targetInfo name="PY32F030x6_Project"/>

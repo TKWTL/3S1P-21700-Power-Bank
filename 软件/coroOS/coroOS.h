@@ -1,90 +1,85 @@
 /*
-Ğ­³ÌÊ½²Ù×÷ÏµÍ³
-*/
+ *åç¨‹å¼æ“ä½œç³»ç»Ÿ
+ *åŸºäºprotothreadåº“
+ *åŸºæœ¬æ€æƒ³ä¸ºï¼šå‡½æ•°å¯ä»¥ä¿å­˜ç°æœ‰çŠ¶æ€é€€å‡ºï¼Œå¹¶åœ¨ä¸‹æ¬¡è°ƒç”¨æ—¶å›åˆ°åŸä½
+ *            åœ¨ä¸æ»¡è¶³è®¾å®šæ¡ä»¶æ—¶ä¸»åŠ¨è·³å‡ºå‡½æ•°ï¼ˆå‡ºè®©CPUï¼‰ä»¥è®©å…¶å®ƒä»»åŠ¡æ‰§è¡Œ
+ *            ä¾‹å¦‚ç”¨THRD_DELAYä»£æ›¿delayï¼Œä»¥åœ¨å»¶æ—¶æœŸé—´åšç‚¹å…¶ä»–çš„äº‹
+ *
+ *å¿…é¡»æœ‰ä¸€ä¸ªéšæ—¶é—´è‡ªå¢çš„uint32_tç±»å‹å˜é‡:millis
+ */
 #ifndef __COROOS_H__
 #define __COROOS_H__
 
-#include "pt.h"                                                                 //»ùÓÚprotothread¿âÊµÏÖ
-#include "pt-sem.h"                                                             //PT¿âµÄĞÅºÅÁ¿
-//#include//Ìí¼Ó²Ù×÷ÏµÍ³ËùĞèÊı¾İ½á¹¹
+#include "pt.h"                                                                 //åŸºäºprotothreadåº“å®ç°
+#include "pt-sem.h"                                                             //PTåº“çš„ä¿¡å·é‡
+#include "stdint.h"                                                             //æ·»åŠ æ“ä½œç³»ç»Ÿæ‰€éœ€æ•°æ®ç»“æ„
 
 #include "defines.h"
 
-//ÒÔÏÂÎªÊ¹ÓÃ¸ÃÏµÍ³µÄÒ»Ğ©ÒªÇó
-//¶¨ÒåÒ»¸öĞ­³Ìº¯ÊıµÄ·½·¨:static int º¯ÊıÃû(struct pt &pt)
-//ÓĞÒ»¸öËæÊ±¼ä×ÔÔöµÄuint32_tÀàĞÍ±äÁ¿:millis
-extern uint32_t millis;
 
-//ÔÚ¸ÃÎÄ¼şÖĞ×¢²áËùÓĞµÄÏß³Ì
-//Ïß³ÌµÄÃû×Ö±ØĞëÂú×ãthread_name()¸ñÊ½£¬nameÎªÏß³ÌÃû
-#define OS_REGISTER_N(name) n_thread_##name
-#define OS_REGISTER(name) thread_##name (tpt+n_thread_##name);
+extern volatile uint32_t millis;
 
-//ÔÚÒÔÏÂÁ½´¦×¢²áÏß³ÌµÄÃû×Ö£¨¼ÇµÃ¼Ó¶ººÅÓë·´Ğ±¸Ü£©
-#define OS_REGISTER_BLOCK1 \
-    OS_REGISTER_N(1),\
-    OS_REGISTER_N(I2C_Transmit)
-//¼ÇµÃ·´Ğ±¸Ü
-#define OS_REGISTER_BLOCK2 \
-    OS_REGISTER(1)\
-    OS_REGISTER(I2C_Transmit)
-    
-//¼ò»¯±à³Ì¶¨Òåºê
-#define OS_REGISTER_BEGIN typedef enum{
-    
-#define OS_REGISTER_SEG1 \
-                            n_thread_num,\
-                         }ThreadIndex_t;\
-                         struct pt tpt[n_thread_num];\
-                         void THRD_INIT(){\
-                             uint16_t p_thread;\
-                             for(p_thread= 0; p_thread< n_thread_num; p_thread++) PT_INIT(tpt+p_thread);\
-                         }\
-                         void OS_Run(){while(1){
-                             
-#define OS_REGISTER_END  }}
 
-/*ÓÃ·¨¾ÙÀı£º£¨ÔÚmain.cÎÄ¼şÖĞ£¬Î»ÓÚËùÓĞthreadº¯ÊıµÄ¶¨ÒåÓëÉùÃ÷ÏÂ£©
-OS_REGISTER_BEGIN
-OS_REGISTER_BLOCK1
-OS_REGISTER_SEG1
-OS_REGISTER_BLOCK2
-OS_REGISTER_END
 
-int main()
-{
-    THRD_INIT();
-    OS_Run();
-    while(1);
-}*/
-/******************************Ğ­³ÌÏµÍ³¶¨Òå************************************/
-//Ğ­³ÌÉùÃ÷
+/*ç”¨æ³•ä¸¾ä¾‹ï¼šï¼ˆåœ¨main.cæ–‡ä»¶ä¸­ï¼Œä½äºæ‰€æœ‰threadå‡½æ•°çš„å®šä¹‰ä¸å£°æ˜ä¸‹ï¼‰*/
+//å®šä¹‰ä¸€ä¸ªåç¨‹å‡½æ•°çš„æ–¹æ³•:char å‡½æ•°å(struct pt &pt)
+
+/******************************åç¨‹ç³»ç»Ÿå®šä¹‰************************************/
+//åç¨‹å£°æ˜
 #define THRD_DECLARE(name_args)         char name_args(struct pt *pt)
     
-//Ğ­³Ì¿ªÊ¼
+//åç¨‹å¼€å§‹
 #define THRD_BEGIN                      static uint32_t endmillis;\
+                                        static struct pt subpt;\
                                         PT_BEGIN(pt)
 
-//³öÈÃ¿ØÖÆÈ¨
+//å‡ºè®©æ§åˆ¶æƒ
 #define THRD_YIELD                      PT_YIELD(pt)
 
-//ÏµÍ³ÑÓÊ±
-#define THRD_DELAY(ticks)               endmillis = ticks + millis;\
-                                        PT_WAIT_UNTIL(pt,endmillis < millis)
+//ç³»ç»Ÿå»¶æ—¶
+#define THRD_DELAY(ticks)               \
+                                        do{\
+                                            endmillis = ticks + millis - 1;\
+                                            PT_WAIT_UNTIL(pt,endmillis < millis);\
+                                        }while(0)
                  
-//ÎŞ³¬Ê±µÄÌõ¼şµÈ´ı
+//æ— è¶…æ—¶çš„æ¡ä»¶ç­‰å¾…
 #define THRD_WHILE(cond)                PT_WAIT_WHILE(pt,cond)
 #define THRD_UNTIL(cond)                PT_WAIT_UNTIL(pt,cond)
 
-//´ø³¬Ê±´¦ÀíµÄÌõ¼şµÈ´ı
-#define THRD_WHILE_T(cond,ticks,func)   endmillis = ticks + millis;\
-                                        if(endmillis < millis) func();\
-                                        else PT_WAIT_WHILE(pt,cond)
-#define THRD_UNTIL_T(cond,ticks,func)   endmillis = ticks + millis;\
-                                        if(endmillis < millis) func();\
-                                        else PT_WAIT_UNTIL(pt,cond)
+//å¸¦è¶…æ—¶å¤„ç†çš„æ¡ä»¶ç­‰å¾…
+#define THRD_WHILE_T(cond,ticks,func)   \
+                                        do{\
+                                            endmillis = ticks + millis - 1;\
+                                            if(endmillis < millis) func();\
+                                            else PT_WAIT_WHILE(pt,cond);\
+                                        } while(0)
                                             
-//Ğ­³Ì½áÊø                 
+#define THRD_UNTIL_T(cond,ticks,func)   \
+                                        do{\
+                                            endmillis = ticks + millis;\
+                                            if(endmillis < millis) func();\
+                                            else PT_WAIT_UNTIL(pt,cond);\
+                                        } while(0)
+        
+//è°ƒç”¨å­åç¨‹
+#define THRD_SPAWN_NOARG(func)          PT_SPAWN(pt, &subpt, func(&subpt))
+#define THRD_SPAWN_ARGS(func,...)       PT_SPAWN(pt, &subpt, func(&subpt, __VA_ARGS__))
+                                            
+//åç¨‹ç»“æŸ                 
 #define THRD_END                        PT_END(pt)
-                                        
+      
+//ptå˜é‡åˆå§‹åŒ–ï¼Œæ”¾åœ¨main()å‡½æ•°ä¸­æ‰§è¡Œä¸€æ¬¡
+#define OS_INIT(name)                   \
+        uint8_t thread_index;\
+        struct pt pt_arr[sizeof(name)/sizeof(char(*)(struct pt *pt))];\
+        for(thread_index = 0;thread_index < thread_num;thread_index++) PT_INIT(pt_arr + thread_index)
+        
+//ç³»ç»Ÿä¸»å¾ªç¯ï¼Œæ”¾åœ¨main()å‡½æ•°çš„while(1)ä¸­
+#define OS_RUN(name)                    \
+        do{\
+            for(thread_index = 0;thread_index < thread_num;thread_index++){\
+                (*name[thread_index])(pt_arr + thread_index);\
+            }\
+        }while(0)
 #endif

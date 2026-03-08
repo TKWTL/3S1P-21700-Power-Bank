@@ -38,7 +38,7 @@ void EXTI4_15_IRQHandler(void)
     if(LL_EXTI_IsActiveFlag(INT_EXTI))
     {
         LL_EXTI_ClearFlag(INT_EXTI);
-        cd_sleep = SLEEP_DELAY;//Ë¢ĞÂË¯Ãßµ¹¼ÆÊ±
+        cd_sleep = SLEEP_DELAY;//åˆ·æ–°ç¡çœ å€’è®¡æ—¶
         inttrig = 1;
     }
 }
@@ -48,7 +48,7 @@ void EXTI2_3_IRQHandler(void)
     if(LL_EXTI_IsActiveFlag(KEY_EXTI))
     {
         LL_EXTI_ClearFlag(KEY_EXTI);
-        cd_sleep = SLEEP_DELAY;//Ë¢ĞÂË¯Ãßµ¹¼ÆÊ±
+        cd_sleep = SLEEP_DELAY;//åˆ·æ–°ç¡çœ å€’è®¡æ—¶
         keytrig  = 1;
     }
 }
