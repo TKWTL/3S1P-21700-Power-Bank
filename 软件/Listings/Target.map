@@ -1407,29 +1407,29 @@ Image Symbol Table
     __arm_cp.4_2                             0x08003c90   Number         4  main.o(.text.thread_sleep)
     __arm_cp.4_3                             0x08003c94   Number         4  main.o(.text.thread_sleep)
     [Anonymous Symbol]                       0x08003c98   Section        0  main.o(.text.thread_trig)
-    __arm_cp.3_0                             0x08003d10   Number         4  main.o(.text.thread_trig)
-    __arm_cp.3_2                             0x08003d2c   Number         4  main.o(.text.thread_trig)
-    __arm_cp.3_3                             0x08003d30   Number         4  main.o(.text.thread_trig)
-    __arm_cp.3_4                             0x08003d34   Number         4  main.o(.text.thread_trig)
-    __arm_cp.3_5                             0x08003d38   Number         4  main.o(.text.thread_trig)
-    [Anonymous Symbol]                       0x08003d3c   Section        0  py32f0xx_bsp_usart.o(.text.uprintf)
-    i.__0vsprintf                            0x08003d68   Section        0  printfa.o(i.__0vsprintf)
-    i.__ARM_clz                              0x08003d8c   Section        0  depilogue.o(i.__ARM_clz)
-    i.__scatterload_copy                     0x08003dba   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x08003dc8   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x08003dca   Section       14  handlers.o(i.__scatterload_zeroinit)
-    _fp_digits                               0x08003dd9   Thumb Code   344  printfa.o(i._fp_digits)
-    i._fp_digits                             0x08003dd8   Section        0  printfa.o(i._fp_digits)
-    _printf_core                             0x08003f4d   Thumb Code  1754  printfa.o(i._printf_core)
-    i._printf_core                           0x08003f4c   Section        0  printfa.o(i._printf_core)
-    _printf_post_padding                     0x08004639   Thumb Code    32  printfa.o(i._printf_post_padding)
-    i._printf_post_padding                   0x08004638   Section        0  printfa.o(i._printf_post_padding)
-    _printf_pre_padding                      0x08004659   Thumb Code    44  printfa.o(i._printf_pre_padding)
-    i._printf_pre_padding                    0x08004658   Section        0  printfa.o(i._printf_pre_padding)
-    _sputc                                   0x08004685   Thumb Code    10  printfa.o(i._sputc)
-    i._sputc                                 0x08004684   Section        0  printfa.o(i._sputc)
-    [Anonymous Symbol]                       0x08004710   Section        0  main.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x08004818   Section        0  sw6306.o(.rodata.str1.1)
+    __arm_cp.3_0                             0x08003d14   Number         4  main.o(.text.thread_trig)
+    __arm_cp.3_2                             0x08003d30   Number         4  main.o(.text.thread_trig)
+    __arm_cp.3_3                             0x08003d34   Number         4  main.o(.text.thread_trig)
+    __arm_cp.3_5                             0x08003d48   Number         4  main.o(.text.thread_trig)
+    __arm_cp.3_6                             0x08003d4c   Number         4  main.o(.text.thread_trig)
+    [Anonymous Symbol]                       0x08003d50   Section        0  py32f0xx_bsp_usart.o(.text.uprintf)
+    i.__0vsprintf                            0x08003d7c   Section        0  printfa.o(i.__0vsprintf)
+    i.__ARM_clz                              0x08003da0   Section        0  depilogue.o(i.__ARM_clz)
+    i.__scatterload_copy                     0x08003dce   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x08003ddc   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x08003dde   Section       14  handlers.o(i.__scatterload_zeroinit)
+    _fp_digits                               0x08003ded   Thumb Code   344  printfa.o(i._fp_digits)
+    i._fp_digits                             0x08003dec   Section        0  printfa.o(i._fp_digits)
+    _printf_core                             0x08003f61   Thumb Code  1754  printfa.o(i._printf_core)
+    i._printf_core                           0x08003f60   Section        0  printfa.o(i._printf_core)
+    _printf_post_padding                     0x0800464d   Thumb Code    32  printfa.o(i._printf_post_padding)
+    i._printf_post_padding                   0x0800464c   Section        0  printfa.o(i._printf_post_padding)
+    _printf_pre_padding                      0x0800466d   Thumb Code    44  printfa.o(i._printf_pre_padding)
+    i._printf_pre_padding                    0x0800466c   Section        0  printfa.o(i._printf_pre_padding)
+    _sputc                                   0x08004699   Thumb Code    10  printfa.o(i._sputc)
+    i._sputc                                 0x08004698   Section        0  printfa.o(i._sputc)
+    [Anonymous Symbol]                       0x08004724   Section        0  main.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x0800482c   Section        0  sw6306.o(.rodata.str1.1)
     rx_rd_index                              0x200000c6   Data           1  py32f0xx_bsp_usart.o(.data.rx_rd_index)
     [Anonymous Symbol]                       0x200000c6   Section        0  py32f0xx_bsp_usart.o(.data.rx_rd_index)
     thread_key.ledind                        0x200000c7   Data           1  main.o(.data.thread_key.ledind)
@@ -1671,22 +1671,22 @@ Image Symbol Table
     thread_echo                              0x08003891   Thumb Code    68  main.o(.text.thread_echo)
     thread_key                               0x080038d5   Thumb Code   624  main.o(.text.thread_key)
     thread_sleep                             0x08003c0d   Thumb Code   128  main.o(.text.thread_sleep)
-    thread_trig                              0x08003c99   Thumb Code   120  main.o(.text.thread_trig)
-    uprintf                                  0x08003d3d   Thumb Code    44  py32f0xx_bsp_usart.o(.text.uprintf)
-    __0vsprintf                              0x08003d69   Thumb Code    30  printfa.o(i.__0vsprintf)
-    __1vsprintf                              0x08003d69   Thumb Code     0  printfa.o(i.__0vsprintf)
-    __2vsprintf                              0x08003d69   Thumb Code     0  printfa.o(i.__0vsprintf)
-    __c89vsprintf                            0x08003d69   Thumb Code     0  printfa.o(i.__0vsprintf)
-    vsprintf                                 0x08003d69   Thumb Code     0  printfa.o(i.__0vsprintf)
-    __ARM_clz                                0x08003d8d   Thumb Code    46  depilogue.o(i.__ARM_clz)
-    __scatterload_copy                       0x08003dbb   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x08003dc9   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x08003dcb   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    AHBPrescTable                            0x08004690   Data          64  system_py32f0xx.o(.rodata.AHBPrescTable)
-    APBPrescTable                            0x080046d0   Data          32  system_py32f0xx.o(.rodata.APBPrescTable)
-    HSIFreqTable                             0x080046f0   Data          32  system_py32f0xx.o(.rodata.HSIFreqTable)
-    Region$$Table$$Base                      0x08004878   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08004898   Number         0  anon$$obj.o(Region$$Table)
+    thread_trig                              0x08003c99   Thumb Code   124  main.o(.text.thread_trig)
+    uprintf                                  0x08003d51   Thumb Code    44  py32f0xx_bsp_usart.o(.text.uprintf)
+    __0vsprintf                              0x08003d7d   Thumb Code    30  printfa.o(i.__0vsprintf)
+    __1vsprintf                              0x08003d7d   Thumb Code     0  printfa.o(i.__0vsprintf)
+    __2vsprintf                              0x08003d7d   Thumb Code     0  printfa.o(i.__0vsprintf)
+    __c89vsprintf                            0x08003d7d   Thumb Code     0  printfa.o(i.__0vsprintf)
+    vsprintf                                 0x08003d7d   Thumb Code     0  printfa.o(i.__0vsprintf)
+    __ARM_clz                                0x08003da1   Thumb Code    46  depilogue.o(i.__ARM_clz)
+    __scatterload_copy                       0x08003dcf   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x08003ddd   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x08003ddf   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    AHBPrescTable                            0x080046a4   Data          64  system_py32f0xx.o(.rodata.AHBPrescTable)
+    APBPrescTable                            0x080046e4   Data          32  system_py32f0xx.o(.rodata.APBPrescTable)
+    HSIFreqTable                             0x08004704   Data          32  system_py32f0xx.o(.rodata.HSIFreqTable)
+    Region$$Table$$Base                      0x0800488c   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x080048ac   Number         0  anon$$obj.o(Region$$Table)
     VECT_SRAM_TAB                            0x20000000   Data         192  system_py32f0xx.o(.ARM.__at_0x20000000)
     SystemCoreClock                          0x200000c0   Data           4  system_py32f0xx.o(.data.SystemCoreClock)
     cd_sleep                                 0x200000c4   Data           2  main.o(.data.cd_sleep)
@@ -1711,9 +1711,9 @@ Memory Map of the image
 
   Image Entry point : 0x080000c1
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00004980, Max: 0x00008000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00004998, Max: 0x00008000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00004898, Max: 0x00008000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x000048ac, Max: 0x00008000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -1838,45 +1838,45 @@ Memory Map of the image
     0x08003890   0x08003890   0x00000044   Code   RO           58    .text.thread_echo   main.o
     0x080038d4   0x080038d4   0x00000338   Code   RO           60    .text.thread_key    main.o
     0x08003c0c   0x08003c0c   0x0000008c   Code   RO           64    .text.thread_sleep  main.o
-    0x08003c98   0x08003c98   0x000000a4   Code   RO           62    .text.thread_trig   main.o
-    0x08003d3c   0x08003d3c   0x0000002c   Code   RO          418    .text.uprintf       py32f0xx_bsp_usart.o
-    0x08003d68   0x08003d68   0x00000024   Code   RO          646    i.__0vsprintf       mc_p.l(printfa.o)
-    0x08003d8c   0x08003d8c   0x0000002e   Code   RO          760    i.__ARM_clz         mf_p.l(depilogue.o)
-    0x08003dba   0x08003dba   0x0000000e   Code   RO          764    i.__scatterload_copy  mc_p.l(handlers.o)
-    0x08003dc8   0x08003dc8   0x00000002   Code   RO          765    i.__scatterload_null  mc_p.l(handlers.o)
-    0x08003dca   0x08003dca   0x0000000e   Code   RO          766    i.__scatterload_zeroinit  mc_p.l(handlers.o)
-    0x08003dd8   0x08003dd8   0x00000174   Code   RO          647    i._fp_digits        mc_p.l(printfa.o)
-    0x08003f4c   0x08003f4c   0x000006ec   Code   RO          648    i._printf_core      mc_p.l(printfa.o)
-    0x08004638   0x08004638   0x00000020   Code   RO          649    i._printf_post_padding  mc_p.l(printfa.o)
-    0x08004658   0x08004658   0x0000002c   Code   RO          650    i._printf_pre_padding  mc_p.l(printfa.o)
-    0x08004684   0x08004684   0x0000000a   Code   RO          652    i._sputc            mc_p.l(printfa.o)
-    0x0800468e   0x0800468e   0x00000002   PAD
-    0x08004690   0x08004690   0x00000040   Data   RO           18    .rodata.AHBPrescTable  system_py32f0xx.o
-    0x080046d0   0x080046d0   0x00000020   Data   RO           19    .rodata.APBPrescTable  system_py32f0xx.o
-    0x080046f0   0x080046f0   0x00000020   Data   RO           20    .rodata.HSIFreqTable  system_py32f0xx.o
-    0x08004710   0x08004710   0x00000108   Data   RO           76    .rodata.str1.1      main.o
-    0x08004818   0x08004818   0x0000005d   Data   RO          615    .rodata.str1.1      sw6306.o
-    0x08004875   0x08004875   0x00000003   PAD
-    0x08004878   0x08004878   0x00000020   Data   RO          763    Region$$Table       anon$$obj.o
+    0x08003c98   0x08003c98   0x000000b8   Code   RO           62    .text.thread_trig   main.o
+    0x08003d50   0x08003d50   0x0000002c   Code   RO          418    .text.uprintf       py32f0xx_bsp_usart.o
+    0x08003d7c   0x08003d7c   0x00000024   Code   RO          646    i.__0vsprintf       mc_p.l(printfa.o)
+    0x08003da0   0x08003da0   0x0000002e   Code   RO          760    i.__ARM_clz         mf_p.l(depilogue.o)
+    0x08003dce   0x08003dce   0x0000000e   Code   RO          764    i.__scatterload_copy  mc_p.l(handlers.o)
+    0x08003ddc   0x08003ddc   0x00000002   Code   RO          765    i.__scatterload_null  mc_p.l(handlers.o)
+    0x08003dde   0x08003dde   0x0000000e   Code   RO          766    i.__scatterload_zeroinit  mc_p.l(handlers.o)
+    0x08003dec   0x08003dec   0x00000174   Code   RO          647    i._fp_digits        mc_p.l(printfa.o)
+    0x08003f60   0x08003f60   0x000006ec   Code   RO          648    i._printf_core      mc_p.l(printfa.o)
+    0x0800464c   0x0800464c   0x00000020   Code   RO          649    i._printf_post_padding  mc_p.l(printfa.o)
+    0x0800466c   0x0800466c   0x0000002c   Code   RO          650    i._printf_pre_padding  mc_p.l(printfa.o)
+    0x08004698   0x08004698   0x0000000a   Code   RO          652    i._sputc            mc_p.l(printfa.o)
+    0x080046a2   0x080046a2   0x00000002   PAD
+    0x080046a4   0x080046a4   0x00000040   Data   RO           18    .rodata.AHBPrescTable  system_py32f0xx.o
+    0x080046e4   0x080046e4   0x00000020   Data   RO           19    .rodata.APBPrescTable  system_py32f0xx.o
+    0x08004704   0x08004704   0x00000020   Data   RO           20    .rodata.HSIFreqTable  system_py32f0xx.o
+    0x08004724   0x08004724   0x00000108   Data   RO           76    .rodata.str1.1      main.o
+    0x0800482c   0x0800482c   0x0000005d   Data   RO          615    .rodata.str1.1      sw6306.o
+    0x08004889   0x08004889   0x00000003   PAD
+    0x0800488c   0x0800488c   0x00000020   Data   RO          763    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08004898, Size: 0x000006a8, Max: 0x00001000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x080048b0, Size: 0x000006a8, Max: 0x00001000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x08004898   0x000000c0   Data   RW           21    .ARM.__at_0x20000000  system_py32f0xx.o
-    0x200000c0   0x08004958   0x00000004   Data   RW           17    .data.SystemCoreClock  system_py32f0xx.o
-    0x200000c4   0x0800495c   0x00000002   Data   RW           72    .data.cd_sleep      main.o
-    0x200000c6   0x0800495e   0x00000001   Data   RW          425    .data.rx_rd_index   py32f0xx_bsp_usart.o
-    0x200000c7   0x0800495f   0x00000001   Data   RW           82    .data.thread_key.ledind  main.o
-    0x200000c8   0x08004960   0x00000001   Data   RW           88    .data.thread_num    main.o
-    0x200000c9   0x08004961   0x00000003   PAD
-    0x200000cc   0x08004964   0x00000014   Data   RW           87    .data.threads       main.o
-    0x200000e0   0x08004978   0x00000001   Data   RW          421    .data.tx_rd_index   py32f0xx_bsp_usart.o
-    0x200000e1   0x08004979   0x00000007   PAD
+    0x20000000   0x080048b0   0x000000c0   Data   RW           21    .ARM.__at_0x20000000  system_py32f0xx.o
+    0x200000c0   0x08004970   0x00000004   Data   RW           17    .data.SystemCoreClock  system_py32f0xx.o
+    0x200000c4   0x08004974   0x00000002   Data   RW           72    .data.cd_sleep      main.o
+    0x200000c6   0x08004976   0x00000001   Data   RW          425    .data.rx_rd_index   py32f0xx_bsp_usart.o
+    0x200000c7   0x08004977   0x00000001   Data   RW           82    .data.thread_key.ledind  main.o
+    0x200000c8   0x08004978   0x00000001   Data   RW           88    .data.thread_num    main.o
+    0x200000c9   0x08004979   0x00000003   PAD
+    0x200000cc   0x0800497c   0x00000014   Data   RW           87    .data.threads       main.o
+    0x200000e0   0x08004990   0x00000001   Data   RW          421    .data.tx_rd_index   py32f0xx_bsp_usart.o
+    0x200000e1   0x08004991   0x00000007   PAD
     0x200000e8        -       0x00000010   Zero   RW          353    .bss.I2C1_Status    py32f0xx_bsp_i2c.o
     0x200000f8        -       0x00000005   Zero   RW          111    .bss.KeyValue_Array  debounce_key.o
-    0x200000fd   0x08004979   0x00000001   PAD
+    0x200000fd   0x08004991   0x00000001   PAD
     0x200000fe        -       0x00000002   Zero   RW          585    .bss.SW6306_ADCLoad.subpt  sw6306.o
     0x20000100        -       0x00000002   Zero   RW          584    .bss.SW6306_ADCRead.subpt  sw6306.o
     0x20000102        -       0x00000002   Zero   RW          583    .bss.SW6306_ByteModify.subpt  sw6306.o
@@ -1899,12 +1899,12 @@ Memory Map of the image
     0x20000156        -       0x00000020   Zero   RW          426    .bss.USART_rx_buffer  py32f0xx_bsp_usart.o
     0x20000176        -       0x00000100   Zero   RW          422    .bss.USART_tx_buffer  py32f0xx_bsp_usart.o
     0x20000276        -       0x00000001   Zero   RW           71    .bss.forceoff       main.o
-    0x20000277   0x08004979   0x00000001   PAD
+    0x20000277   0x08004991   0x00000001   PAD
     0x20000278        -       0x00000004   Zero   RW          354    .bss.i2c_mutex      py32f0xx_bsp_i2c.o
     0x2000027c        -       0x00000001   Zero   RW          312    .bss.inttrig        py32f0xx_bsp_exti.o
     0x2000027d        -       0x00000001   Zero   RW          313    .bss.keytrig        py32f0xx_bsp_exti.o
     0x2000027e        -       0x00000001   Zero   RW           70    .bss.ledsta         main.o
-    0x2000027f   0x08004979   0x00000001   PAD
+    0x2000027f   0x08004991   0x00000001   PAD
     0x20000280        -       0x00000004   Zero   RW           40    .bss.millis         py32f0xx_it.o
     0x20000284        -       0x00000001   Zero   RW          423    .bss.rx_buf_ovf     py32f0xx_bsp_usart.o
     0x20000285        -       0x00000001   Zero   RW          424    .bss.rx_wr_index    py32f0xx_bsp_usart.o
@@ -1913,18 +1913,18 @@ Memory Map of the image
     0x2000028c        -       0x00000002   Zero   RW           75    .bss.thread_app.subpt  main.o
     0x2000028e        -       0x00000002   Zero   RW           83    .bss.thread_key.cd_reset  main.o
     0x20000290        -       0x00000001   Zero   RW           79    .bss.thread_key.cnt  main.o
-    0x20000291   0x08004979   0x00000003   PAD
+    0x20000291   0x08004991   0x00000003   PAD
     0x20000294        -       0x00000004   Zero   RW           84    .bss.thread_key.endmillis  main.o
     0x20000298        -       0x00000001   Zero   RW           80    .bss.thread_key.holding  main.o
     0x20000299        -       0x00000001   Zero   RW           81    .bss.thread_key.leddir  main.o
     0x2000029a        -       0x00000001   Zero   RW           78    .bss.thread_key.step  main.o
-    0x2000029b   0x08004979   0x00000001   PAD
+    0x2000029b   0x08004991   0x00000001   PAD
     0x2000029c        -       0x00000002   Zero   RW           85    .bss.thread_key.subpt  main.o
     0x2000029e        -       0x00000002   Zero   RW           86    .bss.thread_trig.subpt  main.o
     0x200002a0        -       0x00000001   Zero   RW          420    .bss.tx_wr_index    py32f0xx_bsp_usart.o
-    0x200002a1   0x08004979   0x00000001   PAD
+    0x200002a1   0x08004991   0x00000001   PAD
     0x200002a2        -       0x00000002   Zero   RW           77    .bss.wdt_cnt        main.o
-    0x200002a4   0x08004979   0x00000004   PAD
+    0x200002a4   0x08004991   0x00000004   PAD
     0x200002a8        -       0x00000400   Zero   RW            1    STACK               startup_py32f030xx.o
 
 
@@ -1937,7 +1937,7 @@ Image component sizes
 
         40          0          0          0          0        462   bsp_py32f030x6.o
        212          8          0          0          5       3181   debounce_key.o
-      2612        600        264         24         26       7260   main.o
+      2632        616        264         24         26       7275   main.o
        196         28          0          0          2       3821   py32f0xx_bsp_exti.o
        140          4          0          0          0       2546   py32f0xx_bsp_gpio.o
       1456         84          0          0         20      18386   py32f0xx_bsp_i2c.o
@@ -1958,7 +1958,7 @@ Image component sizes
         92         24        128        196          0       2501   system_py32f0xx.o
 
     ----------------------------------------------------------------------
-     13744       1690        712        228       1476     123742   Object Totals
+     13764       1706        712        228       1476     123757   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          4          0          3          6         16          0   (incl. Padding)
 
@@ -2016,15 +2016,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     17872       1832        712        228       1476     124534   Grand Totals
-     17872       1832        712        228       1476     124534   ELF Image Totals
-     17872       1832        712        228          0          0   ROM Totals
+     17892       1848        712        228       1476     124549   Grand Totals
+     17892       1848        712        228       1476     124549   ELF Image Totals
+     17892       1848        712        228          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                18584 (  18.15kB)
+    Total RO  Size (Code + RO Data)                18604 (  18.17kB)
     Total RW  Size (RW Data + ZI Data)              1704 (   1.66kB)
-    Total ROM Size (Code + RO Data + RW Data)      18812 (  18.37kB)
+    Total ROM Size (Code + RO Data + RW Data)      18832 (  18.39kB)
 
 ==============================================================================
 
