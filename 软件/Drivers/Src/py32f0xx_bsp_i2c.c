@@ -121,23 +121,27 @@ void I2C_Unlock(void){
     GPIO_InitStruct.Alternate = LL_GPIO_AF_12;
     LL_GPIO_Init(SDA1_PORT, &GPIO_InitStruct);
     
-    if(LL_GPIO_IsInputPinSet(SDA1_PORT,SDA1_PIN)==0){
-        for(i = 0;i<9;i++){
-            LL_GPIO_SetOutputPin(SCL1_PORT,SCL1_PIN);
-            delay = 255;
-            while(delay > 1) delay--;
-            LL_GPIO_ResetOutputPin(SCL1_PORT,SCL1_PIN);
-            delay = 255;
-            while(delay > 1) delay--;
-            if(LL_GPIO_IsInputPinSet(SDA1_PORT,SDA1_PIN)==0) break;
+    if(LL_GPIO_IsInputPinSet(SDA1_PORT, SDA1_PIN) == 0) {
+    for(i = 0; i < 9; i++) {
+        LL_GPIO_SetOutputPin(SCL1_PORT, SCL1_PIN);
+        delay = 255;
+        while(delay > 1) delay--;
+        LL_GPIO_ResetOutputPin(SCL1_PORT, SCL1_PIN);
+        delay = 255;
+        while(delay > 1) delay--;
+
+        if(LL_GPIO_IsInputPinSet(SDA1_PORT, SDA1_PIN) != 0) {
+            break;//SDA 已经被从机释放为高，则说明解锁成功，可以退出
         }
     }
 }
+}
 
 void I2C_Diagnosis(void){
-    LL_I2C_EnableReset(I2C1);
     BSP_I2C_Config();
     I2C1_Status.i2c1_status = I2C_IDLE;
+    I2C1_Status.i2c1_dma_status = I2C_DMA_IDLE;
+    I2C1_Status.waiting_priority = I2C_LOWEREST_PRIORITY;
 }
 
 I2C_tranceiver_status GetI2CStatus(){
@@ -145,44 +149,52 @@ I2C_tranceiver_status GetI2CStatus(){
 }
 
 //向异步进程发布发送任务，成功时返回1
-uint8_t ASYNC_I2C_Transmit(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len, uint8_t priority, uint8_t *flag){
-//    if(priority > I2C1_Status.waiting_priority) return 0;
-//    else if(LL_I2C_IsActiveFlag_BUSY(I2C1) == 0 && I2C1_Status.i2c1_status == I2C_IDLE){
-        I2C1_Status.i2c1_status = I2C_TX_ADDR;
-        I2C1_Status.async_dev_addr = dev_addr & (uint8_t)(~0x01);
-        I2C1_Status.async_reg_addr = reg_addr;
-        I2C1_Status.async_data = data;
-        I2C1_Status.async_len = len;
-        I2C1_Status.async_flag = flag;
-        *I2C1_Status.async_flag = 0;
-        LL_I2C_EnableIT_TX(I2C1);
-        LL_I2C_DisableBitPOS(I2C1);
-        LL_I2C_GenerateStartCondition(I2C1);
-        if(priority == I2C1_Status.waiting_priority) I2C1_Status.waiting_priority = I2C_LOWEREST_PRIORITY;
-        return 1;
-//    }
-//    else if(priority < I2C1_Status.waiting_priority) I2C1_Status.waiting_priority = priority;           
-//    return 0;
+uint8_t ASYNC_I2C_Transmit(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len, uint8_t priority, uint8_t *flag)
+{
+    (void)priority;   // 不使用 priority
+
+    /* 只有总线和软件状态都空闲时才允许启动 */
+    if((LL_I2C_IsActiveFlag_BUSY(I2C1) != 0) || (I2C1_Status.i2c1_status != I2C_IDLE)) {
+        return 0;
+    }
+
+    I2C1_Status.i2c1_status = I2C_TX_ADDR;
+    I2C1_Status.async_dev_addr = dev_addr & (uint8_t)(~0x01);
+    I2C1_Status.async_reg_addr = reg_addr;
+    I2C1_Status.async_data = data;
+    I2C1_Status.async_len = len;
+    I2C1_Status.async_flag = flag;
+    *I2C1_Status.async_flag = I2C_FLAG_PROCESSING;
+
+    LL_I2C_EnableIT_TX(I2C1);
+    LL_I2C_DisableBitPOS(I2C1);
+    LL_I2C_GenerateStartCondition(I2C1);
+
+    return 1;
 }
 //向异步进程发布接收任务，成功时返回1
-uint8_t ASYNC_I2C_Receive(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len, uint8_t priority, uint8_t *flag){
-//    if(priority > I2C1_Status.waiting_priority) return 0;
-//    else if(LL_I2C_IsActiveFlag_BUSY(I2C1) == 0 && I2C1_Status.i2c1_status == I2C_IDLE){
-        I2C1_Status.i2c1_status = I2C_RX_POINTER_ADDR;
-        I2C1_Status.async_dev_addr = dev_addr & (uint8_t)(~0x01);
-        I2C1_Status.async_reg_addr = reg_addr;
-        I2C1_Status.async_data = data;
-        I2C1_Status.async_len = len;
-        I2C1_Status.async_flag = flag;
-        *I2C1_Status.async_flag = 0;
-        LL_I2C_EnableIT_TX(I2C1);
-        LL_I2C_DisableBitPOS(I2C1);
-        LL_I2C_GenerateStartCondition(I2C1);
-        if(priority == I2C1_Status.waiting_priority) I2C1_Status.waiting_priority = I2C_LOWEREST_PRIORITY;
-        return 1;
-//    }
-//    else if(priority < I2C1_Status.waiting_priority) I2C1_Status.waiting_priority = priority;           
-//    return 0;
+uint8_t ASYNC_I2C_Receive(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len, uint8_t priority, uint8_t *flag)
+{
+    (void)priority;   // 不使用 priority
+
+    /* 只有总线和软件状态都空闲时才允许启动 */
+    if((LL_I2C_IsActiveFlag_BUSY(I2C1) != 0) || (I2C1_Status.i2c1_status != I2C_IDLE)) {
+        return 0;
+    }
+
+    I2C1_Status.i2c1_status = I2C_RX_POINTER_ADDR;
+    I2C1_Status.async_dev_addr = dev_addr & (uint8_t)(~0x01);
+    I2C1_Status.async_reg_addr = reg_addr;
+    I2C1_Status.async_data = data;
+    I2C1_Status.async_len = len;
+    I2C1_Status.async_flag = flag;
+    *I2C1_Status.async_flag = I2C_FLAG_PROCESSING;
+
+    LL_I2C_EnableIT_TX(I2C1);
+    LL_I2C_DisableBitPOS(I2C1);
+    LL_I2C_GenerateStartCondition(I2C1);
+
+    return 1;
 }
 
 void I2C1_IRQHandler()//该中断服务函数名称在startup_py32f030x6.h中定义

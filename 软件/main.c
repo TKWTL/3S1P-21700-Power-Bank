@@ -21,12 +21,12 @@ THRD_DECLARE(thread_app)
         
         THRD_SPAWN_NOARG(SW6306_ADCLoad);
         THRD_SPAWN_NOARG(SW6306_PortStatusLoad);
-        THRD_DELAY(REFRESH_DELAY/4);
+        THRD_DELAY(REFRESH_DELAY/ 4);
         THRD_SPAWN_NOARG(SW6306_StatusLoad);
         THRD_SPAWN_NOARG(SW6306_PowerLoad);
-        THRD_DELAY(REFRESH_DELAY/4);
-        THRD_SPAWN_NOARG(SW6306_CapacityLoad); 
-        THRD_DELAY(REFRESH_DELAY/4);
+        THRD_DELAY(REFRESH_DELAY/ 4);
+        THRD_SPAWN_NOARG(SW6306_CapacityLoad);
+        THRD_DELAY(REFRESH_DELAY/ 4);
         
         if(SW6306_IsInitialized() == 0)//检测SW6306是否已初始化过
         {
@@ -74,7 +74,6 @@ THRD_DECLARE(thread_app)
             THRD_SPAWN_NOARG(SW6306_PortA1Remove);
             THRD_SPAWN_NOARG(SW6306_PortA2Remove);
             deattach_delay = 0;
-            //这一段操作好像没法只断开需要的端口，导致将C口也一同断开，如果打开了LED，就会导致无尽的重连
         }
         
         //LED耗电量计算
@@ -90,7 +89,7 @@ THRD_DECLARE(thread_app)
             }
         }
         
-        THRD_DELAY(REFRESH_DELAY/4);
+        THRD_DELAY(REFRESH_DELAY/ 4);
     }
     THRD_END;
 }
@@ -245,13 +244,11 @@ THRD_DECLARE(thread_trig)
         {
             uprintf("\n\nIRQ event occured!\n");
             //THRD_SPAWN_NOARG(SW6306_StatusLoad);
-            cd_sleep = SLEEP_DELAY;//刷新睡眠倒计时 
             inttrig = 0;
         }
         if(keytrig)
         {
             uprintf("\nKEY Pressed!\n");
-            cd_sleep = SLEEP_DELAY;//刷新睡眠倒计时 
             keytrig = 0;
         }
         if(forceoff)
@@ -271,7 +268,10 @@ THRD_DECLARE(thread_sleep){                                                     
         //按键松开、睡眠倒计时归零、I2C没有正在读写的任务且未进行串口打印
         //满足条件时关闭所有外设：
         //打开SW6306低功耗模式，关闭Systick定时器中断，允许DeepSleep
-        if((USART_IsBusy()==0)&&(cd_sleep==0)&&(LL_GPIO_IsInputPinSet(KEY_PORT, KEY_PIN)))
+        if(USART_IsBusy() == 0&&
+            cd_sleep == 0&&
+            i2c_mutex.count&&
+            LL_GPIO_IsInputPinSet(KEY_PORT, KEY_PIN))
         {
             while(SW6306_LPSet(pt)==0);//while代替THRD_DELAY
             LL_mDelay(1);//延时等待操作完成
@@ -307,7 +307,7 @@ int main(void)
     
     uprintf("\n\n3S1P 21700 Power Bank");
     uprintf("\nPowered by SW6306 & PY32F002A");
-    uprintf("\nTKWTL 2026/03/10\n");
+    uprintf("\nTKWTL 2026/04/12\n");
     
     OS_INIT(threads);
     

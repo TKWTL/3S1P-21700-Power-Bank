@@ -271,14 +271,14 @@
       <DebugOpt>
         <uSim>0</uSim>
         <uTrg>1</uTrg>
-        <sLdApp>1</sLdApp>
+        <sLdApp>0</sLdApp>
         <sGomain>1</sGomain>
         <sRbreak>1</sRbreak>
         <sRwatch>1</sRwatch>
         <sRmem>1</sRmem>
         <sRfunc>1</sRfunc>
         <sRbox>1</sRbox>
-        <tLdApp>1</tLdApp>
+        <tLdApp>0</tLdApp>
         <tGomain>1</tGomain>
         <tRbreak>1</tRbreak>
         <tRwatch>1</tRwatch>
@@ -303,7 +303,7 @@
         <tDllPa></tDllPa>
         <tDlgDll></tDlgDll>
         <tDlgPa></tDlgPa>
-        <tIfile></tIfile>
+        <tIfile>.\Objects\no_reset_debug.ini</tIfile>
         <pMon>BIN\CMSIS_AGDI.dll</pMon>
       </DebugOpt>
       <TargetDriverDllRegistry>
@@ -359,6 +359,21 @@
           <count>3</count>
           <WinNumber>1</WinNumber>
           <ItemText>cd_sleep,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>4</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>keytrig</ItemText>
+        </Ww>
+        <Ww>
+          <count>5</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>&amp;KeyValue_Array</ItemText>
+        </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>SW6306_Status</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>
@@ -1115,7 +1130,7 @@
       <GroupNumber>4</GroupNumber>
       <FileNumber>24</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\coroOS\coroOS.c</PathWithFileName>
