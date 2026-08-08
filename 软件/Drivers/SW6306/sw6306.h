@@ -71,6 +71,27 @@ extern C {
 #define SW6306_UFCS_10V_MAX_MA          5000U       //UFCS source 10V可编程档位最大电流（必须是50的倍数）
 #define SW6306_UFCS_20V_MAX_MA          4000U       //UFCS source 20V可编程档位最大电流（必须是50的倍数）
 
+//WLED外部灯保护阈值（实时ADC保护用）
+//注意：REG0x15/0x2A/0x2B是历史事件寄存器（W1C或下次开机自动清零），不能用于实时保护判断，必须用实时ADC采样值
+#ifndef WLED_VBAT_UVLO_MV
+#define WLED_VBAT_UVLO_MV               9000U       //WLED欠压关闭阈值（mV），对应3S×3.0V
+#endif
+#ifndef WLED_VBAT_RECOVER_MV
+#define WLED_VBAT_RECOVER_MV            9600U       //WLED欠压恢复阈值（mV），对应3S×(3.0V+0.2V迟滞)
+#endif
+#ifndef WLED_NTC_OFF_C
+#define WLED_NTC_OFF_C                  60          //WLED NTC过温关闭阈值（°C）
+#endif
+#ifndef WLED_NTC_RECOVER_C
+#define WLED_NTC_RECOVER_C              55          //WLED NTC过温恢复阈值（°C）
+#endif
+#ifndef WLED_CHIP_OFF_C
+#define WLED_CHIP_OFF_C                 100.0f      //WLED 芯片过温关闭阈值（°C）
+#endif
+#ifndef WLED_CHIP_RECOVER_C
+#define WLED_CHIP_RECOVER_C             90.0f       //WLED 芯片过温恢复阈值（°C）
+#endif
+
 /******************************用户设置区结束**********************************/
 //操作语法宏，方便添加freeRTOS之类的支持
 #ifdef SW6306_USE_PROTOTHREAD
@@ -1260,16 +1281,25 @@ uint8_t SW6306_IsWLEDON(void);                  //SW6306 WLED是否打开
 uint8_t SW6306_IsDisplaying(void);              //SW6306显示是否打开（似乎是一直有效的）
 uint8_t SW6306_IsLowCurrentMode(void);          //SW6306是否处于小电流模式
 uint8_t SW6306_IsMPPTCharging(void);            //SW6306是否处于MPPT充电模式
-uint8_t SW6306_IsCharging(void);                //SW6306是否正在充电
-uint8_t SW6306_IsDischarging(void);             //SW6306是否正在放电
-uint8_t SW6306_IsFullCharged(void);             //SW6306是否充满
-uint8_t SW6306_IsBatteryDepleted(void);         //SW6306电池是否耗尽
-uint8_t SW6306_IsCapacityLearned(void);         //是否已完成电量学习
-uint8_t SW6306_IsErrorinCharging(void);         //充电是否出现异常
-uint8_t SW6306_IsErrorinDischarging(void);      //放电是否出现异常
-uint8_t SW6306_IsKeyEvent(void);                //是否触发了按键事件
-uint8_t SW6306_IsSceneChanged(void);            //是否发生场景变化
-uint8_t SW6306_IsOverHeated(void);              //是否发生过温异常
+uint8_t SW6306_IsCharging(void);                //SW6306是否正在充电（REG0x18实时）
+uint8_t SW6306_IsDischarging(void);             //SW6306是否正在放电（REG0x18实时）
+//实时状态（REG0x18 / ADC采样）
+uint8_t SW6306_IsChargeStoppedByFault(void);    //REG0x18.bit7 异常导致充电关闭（实时）
+uint8_t SW6306_IsDischargeStoppedByFault(void); //REG0x18.bit6 异常导致放电关闭（实时）
+uint8_t SW6306_IsBatteryLowNow(void);           //实时VBAT+迟滞判断电池低压（WLED保护用）
+uint8_t SW6306_IsOverheatedNow(void);           //实时NTC/芯片温度+迟滞判断过温（WLED保护用）
+//历史事件（REG0x15/0x2A/0x2B，处理完后用SW6306_ClearEvents清除）
+uint8_t SW6306_HasUVLOEvent(void);              //REG0x15.bit4 曾发生UVLO事件
+uint8_t SW6306_HasChargeErrorEvent(void);       //REG0x15.bit3 曾发生充电异常事件
+uint8_t SW6306_HasDischargeErrorEvent(void);    //REG0x15.bit2 曾发生放电异常事件
+uint8_t SW6306_HasFullChargeEvent(void);        //REG0x2B.bit5 曾发生充满事件（下次开机清零）
+uint8_t SW6306_HasKeyEvent(void);               //REG0x15.bit1 曾发生按键事件
+uint8_t SW6306_HasSceneEvent(void);             //REG0x15.bit0 曾发生场景变化事件
+SW6306_RET SW6306_ClearEvents(SW6306_ARGS(uint8_t events)); //写1清除REG0x15已处理的事件位（W1C）
+uint8_t SW6306_ReadEventFlags(void);            //读取REG0x15原始事件值
+uint8_t SW6306_ReadFaultDischarge(void);        //读取REG0x2A放电异常历史原因
+uint8_t SW6306_ReadFaultCharge(void);           //读取REG0x2B充电异常历史原因
+uint8_t SW6306_ReadSystemStatus(void);          //读取REG0x18系统实时状态
 //端口状态相关操作
 SW6306_RET SW6306_PortStatusLoad(SW6306_NOARG); //更新端口状态镜像寄存器(0x13,0x18,0x19,0x1C,0x1D)
 uint8_t SW6306_IsPortC1ON(void);                //读取C1口通路是否打开

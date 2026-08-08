@@ -309,13 +309,13 @@
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
-          <Key>UL2CM3</Key>
-          <Name>UL2CM3(-S0 -C0 -P0 ) -FN1 -FC1000 -FD20000000 -FF0PY32F030xx_32 -FL08000 -FS08000000 -FP0($$Device:PY32F030x6$Flash\PY32F030xx_32.FLM)</Name>
+          <Key>CMSIS_AGDI</Key>
+          <Name>-X"Any" -UAny -O198 -S8 -C0 -P00000000 -N00("ARM CoreSight SW-DP") -D00(0BC11477) -L00(0) -TO65554 -TC10000000 -TT10000000 -TP20 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO31 -FD20000000 -FC1000 -FN1 -FF0PY32F0xx_32.FLM -FS08000000 -FL08000 -FP0($$Device:PY32F030x6$Flash\PY32F0xx_32.FLM)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
-          <Key>CMSIS_AGDI</Key>
-          <Name>-X"Any" -UAny -O710 -S8 -C0 -P00000000 -N00("ARM CoreSight SW-DP") -D00(0BC11477) -L00(0) -TO65554 -TC10000000 -TT10000000 -TP20 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC1000 -FN1 -FF0PY32F030xx_32.FLM -FS08000000 -FL08000 -FP0($$Device:PY32F030x6$Flash\PY32F030xx_32.FLM)</Name>
+          <Key>UL2CM3</Key>
+          <Name>UL2CM3(-S0 -C0 -P0 )  -FN1 -FC1000 -FD20000000 -FF0PY061xx_32 -FL08000 -FS08000000 -FP0($$Device:PY32F030x6$CMSIS\Flash\PY061xx_32.FLM)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -1130,7 +1130,7 @@
       <GroupNumber>4</GroupNumber>
       <FileNumber>24</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\coroOS\coroOS.c</PathWithFileName>

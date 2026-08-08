@@ -12,6 +12,7 @@ extern uint8_t inttrig, keytrig;//bsp_exti.c文件定义的指示变量
 THRD_DECLARE(thread_app)
 {
     static uint16_t deattach_delay;
+    static uint8_t events;//REG0x15事件消费缓存（protothread跨yield变量必须static）
     THRD_BEGIN;
     THRD_SPAWN_NOARG(SW6306_ForceOff);
     THRD_SPAWN_NOARG(SW6306_Init);
@@ -27,6 +28,24 @@ THRD_DECLARE(thread_app)
         THRD_DELAY(REFRESH_DELAY/ 4);
         THRD_SPAWN_NOARG(SW6306_CapacityLoad);
         THRD_DELAY(REFRESH_DELAY/ 4);
+        
+        //消费REG0x15事件：读取→打印原因→W1C清除，防止历史事件被当作实时状态
+        events = SW6306_ReadEventFlags();
+        if(events & SW6306_FAULT0_MSK)
+        {
+            if(events & SW6306_FAULT0_UVLO)      uprintf("\nUVLO event occurred.");
+            if(events & SW6306_FAULT0_CHGERR)    uprintf("\nCharge fault event occurred.");
+            if(events & SW6306_FAULT0_DISCHGERR) uprintf("\nDischarge fault event occurred.");
+            if(events & SW6306_FAULT0_KEY)       uprintf("\nKey event occurred.");
+            if(events & SW6306_FAULT0_SCENE)     uprintf("\nScene change event occurred.");
+            if(events & SW6306_FAULT0_LEARNEND)  uprintf("\nCapacity learning finished.");
+            //打印历史故障原因（REG0x2A~0x2C），便于定位具体保护
+            if(events & (SW6306_FAULT0_UVLO|SW6306_FAULT0_CHGERR|SW6306_FAULT0_DISCHGERR))
+                uprintf("\nEVENT=0x%02X SYS=0x%02X FAULT_D=0x%02X FAULT_C=0x%02X",
+                        SW6306_ReadEventFlags(), SW6306_ReadSystemStatus(),
+                        SW6306_ReadFaultDischarge(), SW6306_ReadFaultCharge());
+            THRD_SPAWN_ARGS(SW6306_ClearEvents, events);
+        }
         
         if(SW6306_IsInitialized() == 0)//检测SW6306是否已初始化过
         {
@@ -44,13 +63,13 @@ THRD_DECLARE(thread_app)
         //充电状态、充满状态、BUS与BAT电流足够大时刷新睡眠倒计时
         if((SW6306_ReadIBAT()>IBAT_NOLOAD)||(SW6306_ReadIBUS()>IBUS_NOLOAD)||SW6306_IsPortC1ON()||SW6306_IsPortC2ON()||SW6306_IsPortA1ON()||SW6306_IsPortA2ON()) cd_sleep = SLEEP_DELAY;
 
-        //充放电状态显示
+        //充放电状态显示（异常用REG0x18实时状态，避免历史事件误报）
         if(SW6306_IsCharging()) uprintf("\nCharging.");
         if(SW6306_IsDischarging()) uprintf("\nDischarging.");
-        if(SW6306_IsFullCharged()) uprintf("\nFull Charged.");
+        if(SW6306_HasFullChargeEvent()) uprintf("\nFull Charged.");
         else{
-            if(SW6306_IsErrorinCharging()) uprintf("\nError Occured in Charging.");
-            if(SW6306_IsErrorinDischarging()) uprintf("\nError Occured in Discharging.");
+            if(SW6306_IsChargeStoppedByFault()) uprintf("\nCharging stopped by fault.");
+            if(SW6306_IsDischargeStoppedByFault()) uprintf("\nDischarging stopped by fault.");
         }
             
         //端口状态显示
@@ -192,9 +211,18 @@ THRD_DECLARE(thread_key)
             }
         }
         
-        if(ledsta && (SW6306_IsBatteryDepleted()||SW6306_IsOverHeated()))//低电压与过温关闭WLED
+        if(ledsta && SW6306_IsBatteryLowNow())//实时VBAT低压关闭WLED
         {
-            uprintf("\n\nSomehing is Wrong!Unable to Enable WLED!\n\n");
+            uprintf("\n\nWLED OFF: battery low, VBAT=%dmV\n\n", SW6306_ReadVBAT());
+            ledsta = 0;
+            LED_PWM_Set(0);
+            THRD_DELAY(1);
+            LL_GPIO_ResetOutputPin(LED_PORT,LED_PIN);
+        }
+        else if(ledsta && SW6306_IsOverheatedNow())//实时过温关闭WLED
+        {
+            uprintf("\n\nWLED OFF: over temperature, NTC=%dC CHIP=%.2fC\n\n",
+                    SW6306_ReadTNTC(), SW6306_ReadTCHIP());
             ledsta = 0;
             LED_PWM_Set(0);
             THRD_DELAY(1);
@@ -307,7 +335,7 @@ int main(void)
     
     uprintf("\n\n3S1P 21700 Power Bank");
     uprintf("\nPowered by SW6306 & PY32F002A");
-    uprintf("\nTKWTL 2026/04/12\n");
+    uprintf("\nTKWTL 2026/08/08\n");
     
     OS_INIT(threads);
     

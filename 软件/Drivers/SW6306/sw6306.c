@@ -321,37 +321,105 @@ uint8_t SW6306_IsDischarging(void)//SW6306是否正在放电
 {
     return SW6306_Status.sys_stat & SW6306_SYS_STAT_DISCHGING;
 }
-uint8_t SW6306_IsFullCharged(void)//SW6306是否充满
+/**********************状态查询区（实时/事件语义拆分）**************************/
+/* 重要：REG0x15/0x2A/0x2B 是「历史事件」寄存器（写1清零或下次开机自动清零），
+ * 只能用于判断"曾发生过什么"，不能当作实时状态。
+ * 实时状态请使用 REG0x18（系统状态）与 ADC 采样值。 */
+
+/* ============ 实时状态（REG0x18 / ADC采样） ============ */
+uint8_t SW6306_IsChargeStoppedByFault(void)//REG0x18.bit7：异常导致充电关闭（实时）
 {
-    return SW6306_Status.fault2 & SW6306_FAULT2_FULL;
+    return SW6306_Status.sys_stat & SW6306_SYS_STAT_CHGERR;
 }
-uint8_t SW6306_IsBatteryDepleted(void)//SW6306电池是否耗尽
+uint8_t SW6306_IsDischargeStoppedByFault(void)//REG0x18.bit6：异常导致放电关闭（实时）
 {
-    return SW6306_Status.fault0 & SW6306_FAULT0_UVLO;
+    return SW6306_Status.sys_stat & SW6306_SYS_STAT_DISCHGERR;
 }
-uint8_t SW6306_IsCapacityLearned(void)//是否已完成电量学习
+uint8_t SW6306_IsBatteryLowNow(void)//实时VBAT+迟滞判断电池低压（WLED保护用）
 {
-    return SW6306_Status.fault0 & SW6306_FAULT0_LEARNEND;
+    static uint8_t low = 0;
+    uint16_t vbat = SW6306_ReadVBAT();
+
+    if(vbat < 1000) return 0;//ADC尚未获得有效值，不要误判
+
+    if(low)
+    {
+        if(vbat >= WLED_VBAT_RECOVER_MV) low = 0;//恢复到9.6V才解除低压
+    }
+    else
+    {
+        if(vbat <= WLED_VBAT_UVLO_MV) low = 1;//跌到9.0V才进入低压
+    }
+    return low;
 }
-uint8_t SW6306_IsErrorinCharging(void)//充电是否出现异常
+uint8_t SW6306_IsOverheatedNow(void)//实时NTC/芯片温度+迟滞判断过温（WLED保护用）
 {
-    return SW6306_Status.fault0 & SW6306_FAULT0_CHGERR;
+    static uint8_t overheated = 0;
+    int16_t tntc = SW6306_ReadTNTC();
+    float tchip = SW6306_ReadTCHIP();
+
+    if(overheated)
+    {
+        if(tntc <= WLED_NTC_RECOVER_C && tchip <= WLED_CHIP_RECOVER_C)
+            overheated = 0;
+    }
+    else
+    {
+        if(tntc >= WLED_NTC_OFF_C || tchip >= WLED_CHIP_OFF_C)
+            overheated = 1;
+    }
+    return overheated;
 }
-uint8_t SW6306_IsErrorinDischarging(void)//放电是否出现异常
+
+/* ============ 历史事件（REG0x15/0x2A/0x2B） ============ */
+uint8_t SW6306_HasUVLOEvent(void)//REG0x15.bit4：曾发生UVLO事件
 {
-    return SW6306_Status.fault0 & SW6306_FAULT0_DISCHGERR;
+    return !!(SW6306_Status.fault0 & SW6306_FAULT0_UVLO);
 }
-uint8_t SW6306_IsKeyEvent(void)//是否触发了按键事件
+uint8_t SW6306_HasChargeErrorEvent(void)//REG0x15.bit3：曾发生充电异常事件
 {
-    return SW6306_Status.fault0 & SW6306_FAULT0_KEY;
+    return !!(SW6306_Status.fault0 & SW6306_FAULT0_CHGERR);
 }
-uint8_t SW6306_IsSceneChanged(void)//是否发生场景变化
+uint8_t SW6306_HasDischargeErrorEvent(void)//REG0x15.bit2：曾发生放电异常事件
 {
-    return SW6306_Status.fault0 & SW6306_FAULT0_SCENE;
+    return !!(SW6306_Status.fault0 & SW6306_FAULT0_DISCHGERR);
 }
-uint8_t SW6306_IsOverHeated(void)//是否发生过温异常
+uint8_t SW6306_HasKeyEvent(void)//REG0x15.bit1：曾发生按键事件
 {
-    return (SW6306_Status.fault1&(SW6306_FAULT1_OT_CHIP|SW6306_FAULT1_OT_NTC))|(SW6306_Status.fault2&(SW6306_FAULT2_OT_CHIP|SW6306_FAULT2_OT_NTC));
+    return !!(SW6306_Status.fault0 & SW6306_FAULT0_KEY);
+}
+uint8_t SW6306_HasSceneEvent(void)//REG0x15.bit0：曾发生场景变化事件
+{
+    return !!(SW6306_Status.fault0 & SW6306_FAULT0_SCENE);
+}
+uint8_t SW6306_HasFullChargeEvent(void)//REG0x2B.bit5：曾发生充满事件（下次开机自动清零）
+{
+    return !!(SW6306_Status.fault2 & SW6306_FAULT2_FULL);
+}
+uint8_t SW6306_ReadEventFlags(void)//读取REG0x15原始事件值
+{
+    return SW6306_Status.fault0;
+}
+uint8_t SW6306_ReadFaultDischarge(void)//读取REG0x2A放电异常历史原因
+{
+    return SW6306_Status.fault1;
+}
+uint8_t SW6306_ReadFaultCharge(void)//读取REG0x2B充电异常历史原因
+{
+    return SW6306_Status.fault2;
+}
+uint8_t SW6306_ReadSystemStatus(void)//读取REG0x18系统实时状态
+{
+    return SW6306_Status.sys_stat;
+}
+SW6306_RET SW6306_ClearEvents(SW6306_ARGS(uint8_t events))//写1清除REG0x15已处理的事件位（W1C）
+{
+    SW6306_FUNC_BEGIN;
+    SW6306_MUTEX_TAKE;
+    SW6306_SPAWN_ARGS(SW6306_RegsetSwitch, SW6306_STRG_FAULT0);
+    SW6306_SPAWN_ARGS(SW6306_ByteWrite, SW6306_STRG_FAULT0, events & SW6306_FAULT0_MSK);
+    SW6306_MUTEX_GIVE;
+    SW6306_FUNC_END;
 }
 
 
